@@ -4,10 +4,14 @@
 <title>Mill Road Winter Fair 2019</title>
 <!-- Bootstrap 4 -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<!-- Javascript imports needed by bootstrap 4 -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<!-- Javascript imports needed by bootstrap 4 (not slim version because we need async queries only in the full version) -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="js/common.js"></script>
+<script src="js/stalls_tab.js"></script>
+<script src="js/performances_tab.js"></script>
+<script src="js/events_tab.js"></script>
 </head>
 <body>
 <!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
@@ -23,7 +27,7 @@
 		<a class="nav-link" id="shops-tab" data-toggle="tab" href="#shops" role"tab" aria-controls="shops" aria-selected="false">Shops</a>
 	</li>
 	<li class="nav-item">
-		<a class="nav-link" id="music-tab" data-toggle="tab" href="#music" role"tab" aria-controls="music" aria-selected="false">Music</a>
+		<a class="nav-link" id="performances-tab" data-toggle="tab" href="#performances" role"tab" aria-controls="music" aria-selected="false">Performances</a>
 	</li>
 	<li class="nav-item">
 		<a class="nav-link" id="events-tab" data-toggle="tab" href="#events" role"tab" aria-controls="events" aria-selected="false">Events</a>
@@ -34,7 +38,7 @@
 
 	<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab"><!-- TODO set my size based on viewframe --><iframe id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD" width="370" height="480"></iframe></div>
 	<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab">These are the shops</div>
-	<div class="tab-pane fade" id="music" role="tabpanel" aria-labelledby="music-tab">This is the music listing</div>
+	<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab">This is the busking listing</div>
 	<div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">These are the events throughout the day</div>
 </div>
 </body>
