@@ -21,7 +21,7 @@ $(document).ready(function() {
 		contents += "</p>";
 		if (event.performer) {
 			contents += "<p>" + event.performer.description + "</p>";
-			if (event.performer.events.length > 1) {
+			/*if (event.performer.events.length > 1) {
 				contents += "<p>Also performing at:</p>";
 				for (var i in event.performer.events) {
 					var otherEvent = event.performer.events[i];
@@ -33,7 +33,7 @@ $(document).ready(function() {
 						contents += "</p>";
 					}
 				}
-			}
+			}*/
 		}
 		contents += "</div></div>";
 		$("#performances").append($(contents));

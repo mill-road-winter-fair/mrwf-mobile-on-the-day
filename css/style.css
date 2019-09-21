@@ -1,3 +1,19 @@
 ul.nav {
-	background-color: #00FF00;
+	background-color: #99CC99;
+}
+
+.nav-link {
+	color: #CC3333;
+}
+
+.nav-tabs {
+
+}
+
+.tab-img {
+	height:90%;
+} 
+
+#mrwfNav .nav-link.active, .tab-pane, body{
+	background-color: #DDD;
 }

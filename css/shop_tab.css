@@ -1,3 +1,16 @@
-.shop_elem a {
+.shop_header a, .shop_header {
 	color: #FF0000;
+}
+
+.shop_elem {
+	padding-top: 0.5em;
+	border-bottom: 3px dotted lightgrey;
+}
+
+.shop_header { 
+	padding-right: 20px;
+}
+
+.shop_location { 
+	color: #cc9900
 }
