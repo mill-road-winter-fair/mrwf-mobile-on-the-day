@@ -23,7 +23,7 @@ $(document).ready(function() {
 		$(entry).each(function(){
 			var item = {
 				name: this.gsx$name?this.gsx$name.$t:this.gsx$stallname.$t,
-				description: this.gsx$stalldescription?this.gsx$stalldescription.$t:"Food",
+				description: this.gsx$stalldescription?this.gsx$stalldescription.$t:this.gsx$description.$t,
 				url: this.gsx$url?this.gsx$url.$t:this.gsx$stallwebsite.$t,
 				location: map_location(this.gsx$location.$t)
 				// TODO add properties for filters
