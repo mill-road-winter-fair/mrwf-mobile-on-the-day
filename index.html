@@ -60,6 +60,9 @@ $(document).ready(function() {
 	var offset = $("#stickyHeader").offset();
 	sticky = offset.top;
 	console.log("sticky", sticky, "window.pageYOffset", window.pageYOffset);
+	$(document).on("show.bs.tab", function (e) {
+		window.scrollTo(0,0);
+	});
 });
 </script>
 </head>
@@ -68,7 +71,7 @@ $(document).ready(function() {
 		<img src="http://www.millroadwinterfair.org/assets/img/system/logo.png" style="max-width: 85%; max-height:3%">
 		<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
 		<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
-		<div id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
+		<div id="search-box" style="margin:0 7%"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
 		<!-- TODO Icons preferable to text -->
 		<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
 			<li class="nav-item">
