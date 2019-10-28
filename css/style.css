@@ -10,13 +10,22 @@ ul.nav {
 	height:90%;
 } 
 
-#mrwfNav .nav-link.active, .tab-pane, body{
+.tab-pane, body{
 	background-color: #DDD;
+}
+
+#mrwfNav .nav-link.active {
+	background-color: #9A9;
+	border-color: #9D9;
+}
+
+.header-item {
+  	margin: 0 1%;
+	padding: 2px;
 }
 
 .tab-content {
 	padding: 30px;
-	overflow: scroll;
 }
 
 /* The sticky class is added to the header with JS when it reaches its scroll position */

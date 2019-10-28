@@ -42,24 +42,31 @@
 window.onscroll = function() {keepNavSticky()};
 var sticky;
 var header;
+var body_original_offset;
+var body_original_margin_top;
+var body;
 // Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
 function keepNavSticky() {
   if (header) {
-	console.log("sticky", sticky, "window.pageYOffset", window.pageYOffset);
 	if (window.pageYOffset > sticky) {
 	  header.addClass("sticky");
+	  body.css({'margin-top': body_original_offset});
 	} else {
 	  header.removeClass("sticky");
+	  body.css({'margin-top': body_original_margin_top});
 	}
   }
 } 
 
 $(document).ready(function() {
 	header = $("#stickyHeader");
+	body = $(".tab-content");
 // Get the offset position of the navbar
 	var offset = $("#stickyHeader").offset();
+	var original_tab_offset = body.offset();
 	sticky = offset.top;
-	console.log("sticky", sticky, "window.pageYOffset", window.pageYOffset);
+	body_original_offset = original_tab_offset.top;
+	body_original_margin_top = body.css('margin-top');
 	$(document).on("show.bs.tab", function (e) {
 		window.scrollTo(0,0);
 	});
@@ -68,10 +75,10 @@ $(document).ready(function() {
 </head>
 <body>
 	<div id="stickyHeader">
-		<img src="http://www.millroadwinterfair.org/assets/img/system/logo.png" style="max-width: 85%; max-height:3%">
-		<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
+		<img class="header-item" src="http://www.millroadwinterfair.org/assets/img/system/clear-background-logo.png" style="max-width: 85%; max-height:3%;">
+		<img class="header-item" src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%;"
 		<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
-		<div id="search-box" style="margin:0 7%"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
+		<div class="header-item" id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
 		<!-- TODO Icons preferable to text -->
 		<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
 			<li class="nav-item">
@@ -99,6 +106,11 @@ $(document).ready(function() {
 					data-toggle="tab" href="#events" 
 					role="tab" aria-controls="events" aria-selected="false">Events</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="twitter-tab" 
+					data-toggle="tab" href="#twitter" 
+					role="tab" aria-controls="twitter" aria-selected="false">Twitter</a>
+			</li>
 			<li class="nav-item" style="display: none">
 				<a class="nav-link" id="search-tab" 
 					data-toggle="tab" href="#search" 
@@ -116,6 +128,7 @@ $(document).ready(function() {
 		<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab"><!-- These are the shops --></div>
 		<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab"><!-- This is the busking listing --></div>
 		<div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab"><!-- These are the events throughout the day --></div>
+		<div class="tab-pane fade" id="twitter" role="tabpanel" aria-labelledby="twitter-tab"><a class="twitter-timeline" href="https://twitter.com/MillRoadFair?ref_src=twsrc%5Etfw">Tweets by MillRoadWinterFair</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
 		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div> 
 	</div>
 </body>
