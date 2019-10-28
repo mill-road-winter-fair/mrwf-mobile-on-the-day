@@ -1,43 +1,43 @@
+function render_performance(performance, destination) {
+	var contents = "<div class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
+	if (performance.performer&&performance.performer.url) {
+		var protocol = performance.performer.url.startsWith("https://") ? "https://": "http://";
+		var url = performance.performer.url.startsWith(protocol) ? performance.performer.url.substring(protocol.length) : performance.performer.url;
+		contents += "<a target=\"_blank\" href=\"" + protocol + url + "\">";
+	}
+	contents += performance.name;
+	if (performance.performer&&performance.performer.url) {
+		contents += "</a>";
+	} 
+	contents += "</div><div class=\"shop_location\">" + performance.location + "</div><p>"+ performance.from;
+	if (performance.to) {
+		contents += " - " + performance.to;
+	}
+	contents += "</p>";
+	if (performance.performer) {
+		contents += "<p>" + performance.performer.description + "</p>";
+		/*if (performance.performer.performances.length > 1) {
+			contents += "<p>Also performing at:</p>";
+			for (var i in performance.performer.performances) {
+				var otherperformance = performance.performer.performances[i];
+				if (otherperformance.from != performance.from) {
+					contents += "<p>" + otherperformance.location + "<br />" + otherperformance.from;
+					if (otherperformance.to) {
+						contents += " - " + otherperformance.to;
+					}
+					contents += "</p>";
+				}
+			}
+		}*/
+	}
+	contents += "</div></div>";
+	destination.append($(contents));
+}			
+
 $(document).ready(function() {
 
 	var performers = [];
-	var events = [];
-
-	function render_event(event) {
-		var contents = "<div class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
-		if (event.performer&&event.performer.url) {
-			var protocol = event.performer.url.startsWith("https://") ? "https://": "http://";
-			var url = event.performer.url.startsWith(protocol) ? event.performer.url.substring(protocol.length) : event.performer.url;
-			contents += "<a target=\"_blank\" href=\"" + protocol + url + "\">";
-		}
-		contents += event.name;
-		if (event.performer&&event.performer.url) {
-			contents += "</a>";
-		} 
-		contents += "</div><div class=\"shop_location\">" + event.location + "</div><p>"+ event.from;
-		if (event.to) {
-			contents += " - " + event.to;
-		}
-		contents += "</p>";
-		if (event.performer) {
-			contents += "<p>" + event.performer.description + "</p>";
-			/*if (event.performer.events.length > 1) {
-				contents += "<p>Also performing at:</p>";
-				for (var i in event.performer.events) {
-					var otherEvent = event.performer.events[i];
-					if (otherEvent.from != event.from) {
-						contents += "<p>" + otherEvent.location + "<br />" + otherEvent.from;
-						if (otherEvent.to) {
-							contents += " - " + otherEvent.to;
-						}
-						contents += "</p>";
-					}
-				}
-			}*/
-		}
-		contents += "</div></div>";
-		$("#performances").append($(contents));
-	}			
+	var performances = [];
 
 	function get_music_data () {
 		// first get all the performers.
@@ -50,8 +50,8 @@ $(document).ready(function() {
 					name: this.title.$t,
 					description: this.gsx$description.$t,
 					url: this.gsx$url.$t,
-					// tracking events this performer is at
-					events: []
+					// tracking performances this performer is at
+					performances: []
 				});
 			});
 
@@ -73,16 +73,22 @@ $(document).ready(function() {
 						var performer = performers[index];
 						if (performer.name == item.name) {
 							item.performer = performer;
-							performer.events.push(item);
+							performer.performances.push(item);
 							break;
 						}
 					}
-					events.push(item);
+					performances.push(item);
 				});
 				// now that's done, render them all
-				events.forEach(function(event) {
-					render_event(event);
+				performances.forEach(function(performance) {
+					render_performance(performance, $("#performances"));
 				});
+				
+				performances_map = performances.map(function(item) {
+					return { performance: item };
+				});
+				// Add to the search indexes
+				add_searchable_items(performances_map, ["performance.name", "performance.from", "performance.performer.name", "performance.performer.description"]);
 			});		
 		});
 	}

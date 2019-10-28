@@ -16,6 +16,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
 		crossorigin="anonymous"></script>
+<!-- Allows users to search all the items in the page, Fuse -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
 <!-- Global styling --> 
 <link rel="stylesheet" href="css/style.css">
 <!-- Useful functions needed by lots of our javascript -->
@@ -29,51 +31,61 @@
 <!-- For the events tab -->
 <link rel="stylesheet" href="css/events_tab.css">
 <script src="js/events_tab.js"></script>
+<!-- For the search tab -->
+<link rel="stylesheet" href="css/search_tab.css">
+<script src="js/search_tab.js"></script>
 <!-- For the map tab -->
 <link rel="stylesheet" href="css/map_tab.css">
 </head>
 <body>
 	<img src="http://www.millroadwinterfair.org/assets/img/system/logo.png" style="max-width: 85%; max-height:3%">
-<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
-<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
-<!-- TODO Icons preferable to text -->
-<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
-	<li class="nav-item">
-		<a class="nav-link active" id="home-tab" 
-			data-toggle="tab" href="#home" 
-			role="tab" aria-controls="home" aria-selected="true">Home</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link"	id="map-tab" 
-			data-toggle="tab" href="#map" 
-			role="tab" aria-controls="map" aria-selected="false">Map</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="shops-tab" 
-			data-toggle="tab" href="#shops" 
-			role="tab" aria-controls="shops" aria-selected="false">Shops</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="performances-tab" 
-			data-toggle="tab" href="#performances" 
-			role="tab" aria-controls="music" aria-selected="false">Performances</a>
-	</li>
-	<li class="nav-item">
-		<a class="nav-link" id="events-tab" 
-			data-toggle="tab" href="#events" 
-			role="tab" aria-controls="events" aria-selected="false">Events</a>
-	</li>
-</ul>
-<div class="tab-content" id="mrwfNavContent">
-	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">This is the home content</div>
+	<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
+	<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
+	<div id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
+	<!-- TODO Icons preferable to text -->
+	<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="home-tab" 
+				data-toggle="tab" href="#home" 
+				role="tab" aria-controls="home" aria-selected="true">Home</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link"	id="map-tab" 
+				data-toggle="tab" href="#map" 
+				role="tab" aria-controls="map" aria-selected="false">Map</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="shops-tab" 
+				data-toggle="tab" href="#shops" 
+				role="tab" aria-controls="shops" aria-selected="false">Shops</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="performances-tab" 
+				data-toggle="tab" href="#performances" 
+				role="tab" aria-controls="music" aria-selected="false">Performances</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="events-tab" 
+				data-toggle="tab" href="#events" 
+				role="tab" aria-controls="events" aria-selected="false">Events</a>
+		</li>
+		<li class="nav-item" style="display: none">
+			<a class="nav-link" id="search-tab" 
+				data-toggle="tab" href="#search" 
+				role="tab" aria-controls="search" aria-selected="false">Search</a>
+		</li>
+	</ul>
+	<div class="tab-content" id="mrwfNavContent">
+		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">This is the home content</div>
 
-	<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
-		<!-- TODO set my size based on viewframe -->
-		<embed id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1" width="370" height="480"></embed>
+		<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
+			<!-- TODO set my size based on viewframe -->
+			<embed id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1" width="370" height="480"></embed>
+		</div>
+		<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab"><!-- These are the shops --></div>
+		<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab"><!-- This is the busking listing --></div>
+		<div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab"><!-- These are the events throughout the day --></div>
+		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div> 
 	</div>
-	<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab">These are the shops</div>
-	<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab">This is the busking listing</div>
-	<div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab">These are the events throughout the day</div>
-</div>
 </body>
 </html>

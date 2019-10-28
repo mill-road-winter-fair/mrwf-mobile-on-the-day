@@ -1,3 +1,8 @@
+// filter function that ensures only one example exists in the resultant list
+function only_unique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
 function filterColumn(thing, prop) {
 	return thing.hasOwnProperty("gsx$" + prop) && (thing["gsx$" + prop].$t == "X" || thing["gsx$" + prop].$t == "x");
 }	
@@ -46,3 +51,17 @@ function update_nav(self) {
 	self.css("color", "#C52724");
 }
 
+// Search functionality
+let _search_list = [];
+let _relevant_keys = [];
+let _search;
+function add_searchable_items(list, searchable_properties) {
+	_search_list = _search_list.concat(list);
+	console.log("Now searching over", _search_list);
+	_relevant_keys = _relevant_keys.concat(searchable_properties).filter(only_unique);
+	_search = new Fuse(_search_list, { threshold: 0.33, keys: _relevant_keys,  });
+}
+
+function do_search(text) {
+	return _search.search(text);
+}
