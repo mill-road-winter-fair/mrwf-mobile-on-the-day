@@ -36,45 +36,73 @@
 <script src="js/search_tab.js"></script>
 <!-- For the map tab -->
 <link rel="stylesheet" href="css/map_tab.css">
+<script>
+// Specifically js for this layout
+// When the user scrolls the page, execute myFunction
+window.onscroll = function() {keepNavSticky()};
+var sticky;
+var header;
+// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
+function keepNavSticky() {
+  if (header) {
+	console.log("sticky", sticky, "window.pageYOffset", window.pageYOffset);
+	if (window.pageYOffset > sticky) {
+	  header.addClass("sticky");
+	} else {
+	  header.removeClass("sticky");
+	}
+  }
+} 
+
+$(document).ready(function() {
+	header = $("#stickyHeader");
+// Get the offset position of the navbar
+	var offset = $("#stickyHeader").offset();
+	sticky = offset.top;
+	console.log("sticky", sticky, "window.pageYOffset", window.pageYOffset);
+});
+</script>
 </head>
 <body>
-	<img src="http://www.millroadwinterfair.org/assets/img/system/logo.png" style="max-width: 85%; max-height:3%">
-	<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
-	<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
-	<div id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
-	<!-- TODO Icons preferable to text -->
-	<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
-		<li class="nav-item">
-			<a class="nav-link active" id="home-tab" 
-				data-toggle="tab" href="#home" 
-				role="tab" aria-controls="home" aria-selected="true">Home</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link"	id="map-tab" 
-				data-toggle="tab" href="#map" 
-				role="tab" aria-controls="map" aria-selected="false">Map</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="shops-tab" 
-				data-toggle="tab" href="#shops" 
-				role="tab" aria-controls="shops" aria-selected="false">Shops</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="performances-tab" 
-				data-toggle="tab" href="#performances" 
-				role="tab" aria-controls="music" aria-selected="false">Performances</a>
-		</li>
-		<li class="nav-item">
-			<a class="nav-link" id="events-tab" 
-				data-toggle="tab" href="#events" 
-				role="tab" aria-controls="events" aria-selected="false">Events</a>
-		</li>
-		<li class="nav-item" style="display: none">
-			<a class="nav-link" id="search-tab" 
-				data-toggle="tab" href="#search" 
-				role="tab" aria-controls="search" aria-selected="false">Search</a>
-		</li>
-	</ul>
+	<div id="stickyHeader">
+		<img src="http://www.millroadwinterfair.org/assets/img/system/logo.png" style="max-width: 85%; max-height:3%">
+		<img src="http://www.millroadwinterfair.org/assets/img/system/date-time.png" style="height:3%; margin:0 7%">
+		<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
+		<div id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
+		<!-- TODO Icons preferable to text -->
+		<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="home-tab" 
+					data-toggle="tab" href="#home" 
+					role="tab" aria-controls="home" aria-selected="true">Home</a>
+			</li>
+			<li class="nav-item">
+					<a class="nav-link"	id="map-tab" 
+					data-toggle="tab" href="#map" 
+					role="tab" aria-controls="map" aria-selected="false">Map</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="shops-tab" 
+					data-toggle="tab" href="#shops" 
+					role="tab" aria-controls="shops" aria-selected="false">Shops</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="performances-tab" 
+					data-toggle="tab" href="#performances" 
+					role="tab" aria-controls="music" aria-selected="false">Performances</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="events-tab" 
+					data-toggle="tab" href="#events" 
+					role="tab" aria-controls="events" aria-selected="false">Events</a>
+			</li>
+			<li class="nav-item" style="display: none">
+				<a class="nav-link" id="search-tab" 
+					data-toggle="tab" href="#search" 
+					role="tab" aria-controls="search" aria-selected="false">Search</a>
+			</li>
+		</ul>
+	</div>
 	<div class="tab-content" id="mrwfNavContent">
 		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">This is the home content</div>
 
