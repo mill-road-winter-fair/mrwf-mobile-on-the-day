@@ -11,7 +11,7 @@ ul.nav {
 } 
 
 .tab-pane, body{
-	background-color: #DDD;
+	background-color: #FFF;
 }
 
 #mrwfNav {
@@ -37,9 +37,9 @@ ul.nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #DDD;
+  background-color: #FFF;
 }
 
 body {
-  font-family: courier;
+  font-family: "Verdana", "Times New Roman";
 }
