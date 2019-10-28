@@ -14,6 +14,10 @@ ul.nav {
 	background-color: #DDD;
 }
 
+#mrwfNav {
+	font-weight: bold;
+}
+
 #mrwfNav .nav-link.active {
 	background-color: #9A9;
 	border-color: #9D9;
@@ -34,4 +38,8 @@ ul.nav {
   top: 0;
   width: 100%;
   background-color: #DDD;
+}
+
+body {
+  font-family: courier;
 }
