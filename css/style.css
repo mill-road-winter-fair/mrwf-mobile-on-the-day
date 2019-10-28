@@ -14,6 +14,10 @@ ul.nav {
 	background-color: #FFF;
 }
 
+#stickyHeader {
+	background-color: #CC3333;
+}
+
 #mrwfNav {
 	font-weight: bold;
 }
@@ -37,7 +41,24 @@ ul.nav {
   position: fixed;
   top: 0;
   width: 100%;
-  background-color: #FFF;
+  background-color: #CC3333;
+}
+
+.header-item input {
+	background-color: #990000;
+	color: #DDDDDD;
+	padding-left:0.25em;
+}
+
+.header-item input {
+	background-color: #990000;
+	color: #DDDDDD;
+	padding-left:0.25em;
+}
+
+.header-item button {
+	background-color: #cc9900;
+	color: #FFFFFF;
 }
 
 body {
