@@ -22,7 +22,8 @@ function render_event(event, destination) {
 }
 
 $(document).ready(function() {
-
+	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\" }'></div>");
+	
 	function get_event_data () {
 		//var spreadsheetID = "1R9VGdWmTecqviQ179A-QOOaWl3v1zm2Srgue09q0mqM";
 		// process data
@@ -47,7 +48,7 @@ $(document).ready(function() {
 					item.from = this.gsx$from.$t;
 				}
 				// TODO add info for filters?
-				render_event(item, $("#events"));				
+				render_event(item, grid);				
 				items.push(item);
 			});
 			events_map = items.map(function(item) {
@@ -55,6 +56,7 @@ $(document).ready(function() {
 			});
 			// Add to the search indexes
 			add_searchable_items(events_map, ["event.name", "event.description"]);
+			$("#events").append(grid);
 		});
 	}
 

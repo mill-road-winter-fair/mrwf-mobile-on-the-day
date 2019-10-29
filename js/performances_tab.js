@@ -38,7 +38,8 @@ $(document).ready(function() {
 
 	var performers = [];
 	var performances = [];
-
+	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\" }'></div>");
+			
 	function get_music_data () {
 		// first get all the performers.
 		var url = "https://spreadsheets.google.com/feeds/list/1lE6NhqbzP8LxCpbQdRHDE-EnQ0dxSGOuxSSVznYLYUo/od6/public/values?alt=json";
@@ -81,7 +82,7 @@ $(document).ready(function() {
 				});
 				// now that's done, render them all
 				performances.forEach(function(performance) {
-					render_performance(performance, $("#performances"));
+					render_performance(performance, grid);
 				});
 				
 				performances_map = performances.map(function(item) {
@@ -89,7 +90,8 @@ $(document).ready(function() {
 				});
 				// Add to the search indexes
 				add_searchable_items(performances_map, ["performance.name", "performance.from", "performance.performer.name", "performance.performer.description"]);
-			});		
+			});	
+			$("#performances").append(grid);	
 		});
 	}
 	// query for data

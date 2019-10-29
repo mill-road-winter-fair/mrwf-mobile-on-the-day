@@ -3,8 +3,17 @@
 }
 
 .shop_elem {
-	padding-top: 0.5em;
-	border-bottom: 3px dotted lightgrey;
+	padding: 0.5em;
+	margin: 2px;
+	border: 1px dotted;
+	width: 350px;
+	display: inline-block;
+    vertical-align: top;
+}
+
+.grid {
+	column-gap: 10px;
+	column-width: 350px;
 }
 
 .shop_header { 

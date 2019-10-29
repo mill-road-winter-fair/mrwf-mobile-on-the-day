@@ -16,7 +16,7 @@ function render_shop(shop, destination) {
 $(document).ready(function() {
 
 	var shops = [];
-
+	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\"}'></div>");
 
 	function process_spreadsheet(data) {
 		var entry = data.feed.entry;
@@ -33,7 +33,7 @@ $(document).ready(function() {
 			if (!item.location) return;
 			shops.push(item);
 			searchables.push(item);
-			render_shop(item, $("#shops"));
+			render_shop(item, grid);
 		});
 		shop_map = searchables.map(function(item) {
 			return { shop: item };
@@ -48,6 +48,7 @@ $(document).ready(function() {
 		// process the stalls data into categories
 		$.getJSON("https://spreadsheets.google.com/feeds/list/1XL5sVmJbLyYYkSrwayyKRBNxkiVxXWbZTUXNdaD6Eu8/od6/public/values?alt=json", process_spreadsheet);
 		$.getJSON("https://spreadsheets.google.com/feeds/list/1kKJSpomSOHyGAO-Y3JRIfGvMs7S5TeVKLEewLEiBeK0/od6/public/values?alt=json", process_spreadsheet);
+		$("#shops").append(grid);
 	}
 
 	// query for data
