@@ -1,9 +1,9 @@
 ul.nav {
-	background-color: #99CC99;
+	background-color: #006633;
 }
 
 .nav-link {
-	color: #CC3333;
+	color: #FF6666;
 }
 
 .tab-img {
@@ -20,16 +20,31 @@ ul.nav {
 
 #mrwfNav {
 	font-weight: bold;
+	color: #FF6666;
+}
+
+#mrwfNav a:hover {
+	color: #FF6666;
 }
 
 #mrwfNav .nav-link.active {
-	background-color: #9A9;
-	border-color: #9D9;
+	background-color: #2b7028;
+	border-color: #2b7028;
+	color: #FF6666;
+}
+
+.header-img { 
+	height:60px;
 }
 
 .header-item {
   	margin: 0 1%;
 	padding: 2px;
+	color: #DDDDDD;
+}
+
+#search-box {
+	display:block;
 }
 
 .tab-content {
