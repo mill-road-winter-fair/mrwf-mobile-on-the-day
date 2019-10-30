@@ -14,7 +14,7 @@ ul.nav {
 	background-color: #FFF;
 }
 
-#stickyHeader {
+#stickyHeader, #header-info{
 	background-color: #CC3333;
 }
 

@@ -5,7 +5,6 @@
 .shop_elem {
 	padding: 0.5em;
 	margin: 2px;
-	border: 1px dotted;
 	width: 350px;
 	display: inline-block;
     vertical-align: top;
@@ -13,7 +12,7 @@
 
 .grid {
 	column-gap: 10px;
-	column-width: 350px;
+	column-width: 360px;
 }
 
 .shop_header { 

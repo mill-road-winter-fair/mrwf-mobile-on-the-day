@@ -64,10 +64,10 @@ $(document).ready(function() {
 	header = $("#stickyHeader");
 	body = $(".tab-content");
 // Get the offset position of the navbar
-	var offset = $("#stickyHeader").offset();
+	var offset = header.offset();
 	var original_tab_offset = body.offset();
 	sticky = offset.top;
-	body_original_offset = original_tab_offset.top;
+	body_original_offset = original_tab_offset.top - sticky;
 	body_original_margin_top = body.css('margin-top');
 	$(document).on("show.bs.tab", function (e) {
 		window.scrollTo(0,0);
@@ -76,14 +76,14 @@ $(document).ready(function() {
 </script>
 </head>
 <body>
+	<div id="header-info">
+		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/mrwf-mobile-logo-negative.png" style="max-width: 85%; max-height:3%;">
+		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/date-time-inverse.png" style="height:3%;"
+		<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
+		<div class="header-item" id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
+		<div class="header-item">THE DATA ON THIS PAGE IS FROM 2018. THIS IS A DESIGN PROTOTYPE ONLY.</div>
+	</div>
 	<div id="stickyHeader">
-		<div id="header-info">
-			<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/mrwf-mobile-logo-negative.png" style="max-width: 85%; max-height:3%;">
-			<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/date-time-inverse.png" style="height:3%;"
-			<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
-			<div class="header-item" id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
-			<div class="header-item">THE DATA ON THIS PAGE IS FROM 2018. THIS IS A DESIGN PROTOTYPE ONLY.</div>
-		</div>
 		<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active" id="home-tab" 
