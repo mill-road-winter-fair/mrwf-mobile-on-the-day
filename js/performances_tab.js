@@ -80,6 +80,9 @@ $(document).ready(function() {
 					}
 					performances.push(item);
 				});
+				performances.sort(function(a, b) {
+					return a.from.localeCompare(b.from);
+				});
 				// now that's done, render them all
 				performances.forEach(function(performance) {
 					render_performance(performance, grid);

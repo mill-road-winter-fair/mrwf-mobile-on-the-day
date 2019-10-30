@@ -48,8 +48,26 @@ $(document).ready(function() {
 					item.from = this.gsx$from.$t;
 				}
 				// TODO add info for filters?
-				render_event(item, grid);				
 				items.push(item);
+			});
+			items.sort(function(a, b) {
+				if (a.from) {
+					if (b.from) {
+						var time_diff = a.from.localeCompare(b.from);
+						if (time_diff == 0) {
+							return a.name.localeCompare(b.name);
+						}
+						return time_diff;
+					}
+					return -1;
+				}
+				if (b.from) {
+					return 1;
+				}
+				return a.name.localeCompare(b.name);
+			});
+			items.forEach(function (item) {
+				render_event(item, grid);				
 			});
 			events_map = items.map(function(item) {
 				return { event: item };

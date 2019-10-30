@@ -31,10 +31,20 @@ $(document).ready(function() {
 			};
 
 			if (!item.location) return;
-			shops.push(item);
 			searchables.push(item);
+			shops.push(item);
+		});
+		shops.sort(function (a, b) {
+			var location_diff = a.location.localeCompare(b.location);
+			if (location_diff == 0) {
+				return a.name.localeCompare(b.name);
+			}
+			return location_diff;
+		});
+		shops.forEach(function(item) {
 			render_shop(item, grid);
 		});
+
 		shop_map = searchables.map(function(item) {
 			return { shop: item };
 		});
