@@ -1,3 +1,4 @@
+// Categories to show on the page
 var shop_categories = [
 	["Christmas","christmas"],
 	["Textiles/knits","textiles"],
@@ -16,6 +17,7 @@ var shop_categories = [
 	["Treats", "treats"],
 ];
 
+// Render an individual shop element (also used by the search page)
 function render_shop(shop, destination) {
 	var data_attributes = "";
 	shop_categories.forEach(function(catArray) {
@@ -37,17 +39,18 @@ function render_shop(shop, destination) {
 	destination.append($(contents));
 }
 
-$(document).ready(function() {
-
-	var shops = [];
+$(document).ready(function() {	
+	// The container to show the shops as a grid.
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\"}'></div>");
 
+	// Add category filters to the navigation when activating this tab
 	$("#shops-tab").on("show.bs.tab", function (e) {	
 		var filter= $("#mrwfFilters");
 		filter.html("<li class=\"nav-item\"><a class=\"nav-link\" id=\"stalls-all\" href=\"#\">All</a></li>");
 		shop_categories.forEach(function (catArray) {
 			filter.append("<li class=\"nav-item\"><a class=\"nav-link stalls-filter\" href=\"#\" data-category=\"" + catArray[1] + "\">" + catArray[0] + "</a></li>");
 		});
+		// Have to add these handlers after we've added the filters to the navigation
 		$("#stalls-all").click(function(e) {
 			e.preventDefault();
 			$("#shops .grid .shop_elem").show();
@@ -64,20 +67,24 @@ $(document).ready(function() {
 			});		
 		});
 	});
+	// Clear filters when moving away from this tab
 	$("#shops-tab").on("hide.bs.tab", function (e) {	
 		var filter= $("#mrwfFilters");
 		filter.html("");
 	});
-
+	
+	// Parse a json data source for stalls
 	function process_spreadsheet(data) {
 		var entry = data.feed.entry;
 		var searchables = [];
+		// Parse the feed into standardized items (we get data from two different kinds of feed)
 		$(entry).each(function(){
 			var item = {
 				name: this.gsx$name?this.gsx$name.$t:this.gsx$stallname.$t,
 				description: this.gsx$stalldescription?this.gsx$stalldescription.$t:this.gsx$description.$t,
 				url: this.gsx$url?this.gsx$url.$t:this.gsx$stallwebsite.$t,
 				location: map_location(this.gsx$location.$t),
+				// Add categories for filters
 				arts: this.gsx$artcards?!(!this.gsx$artcards.$t):false,
 				books: this.gsx$books?!(!this.gsx$books.$t):false,
 				charity: this.gsx$charity?!(!this.gsx$charity.$t):false,
@@ -92,14 +99,13 @@ $(document).ready(function() {
 				drinks: this.gsx$drinks?!(!this.gsx$drinks.$t):false,
 				gourmet: this.gsx$gourmet?!(!this.gsx$gourmet.$t):false,
 				streetfood: this.gsx$streetfood?!(!this.gsx$streetfood.$t):false,
-				treats: this.gsx$treats?!(!this.gsx$treats.$t):false,
-				// TODO add properties for filters
+				treats: this.gsx$treats?!(!this.gsx$treats.$t):false
 			};
 
 			if (!item.location) return;
 			searchables.push(item);
-			shops.push(item);
 		});
+		// Group by location then sort by name
 		searchables.sort(function (a, b) {
 			var location_diff = a.location.localeCompare(b.location);
 			if (location_diff == 0) {
@@ -107,14 +113,14 @@ $(document).ready(function() {
 			}
 			return location_diff;
 		});
+		// Draw the sorted shops to the page
 		searchables.forEach(function(item) {
 			render_shop(item, grid);
 		});
-
+		// Add to the search indexes
 		shop_map = searchables.map(function(item) {
 			return { shop: item };
 		});
-		// Add to the search indexes
 		add_searchable_items(shop_map, ["shop.name", "shop.description", "shop.url", "shop.location"]);
 	}
 

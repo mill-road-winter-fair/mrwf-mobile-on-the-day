@@ -1,3 +1,4 @@
+// Render an individual performance on the page (also used by the search page)
 function render_performance(performance, destination) {
 	var contents = "<div class=\"shop_elem\" data-from=\"" + performance.from + "\" data-to=\"" + performance.to + "\"><div class=\"shop_content\"><div class=\"shop_header\">";
 	if (performance.performer&&performance.performer.url) {
@@ -16,7 +17,8 @@ function render_performance(performance, destination) {
 	contents += "</p>";
 	if (performance.performer) {
 		contents += "<p>" + performance.performer.description + "</p>";
-		/*if (performance.performer.performances.length > 1) {
+		/* List other performances this performer is doing. 
+		if (performance.performer.performances.length > 1) {
 			contents += "<p>Also performing at:</p>";
 			for (var i in performance.performer.performances) {
 				var otherperformance = performance.performer.performances[i];
@@ -28,7 +30,8 @@ function render_performance(performance, destination) {
 					contents += "</p>";
 				}
 			}
-		}*/
+		}
+		*/
 	}
 	contents += "</div></div>";
 	destination.append($(contents));
@@ -39,7 +42,7 @@ $(document).ready(function() {
 	var performers = [];
 	var performances = [];
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\" }'></div>");
-	var categories = [
+	var time_slots = [
 		["10am", "10"],
 		["11am", "11"],
 		["12pm", "12"],
@@ -53,7 +56,7 @@ $(document).ready(function() {
 		var filter= $("#mrwfFilters");
 		filter.html("");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link\" href=\"#\" id=\"performances-all\">All</a></li>");
-		categories.forEach(function (catArray) {
+		time_slots.forEach(function (catArray) {
 			filter.append("<li class=\"nav-item\"><a class=\"nav-link performances-filter\" href=\"#\" data-time=\"" + catArray[1] + "\">" + catArray[0] + "</a></li>");
 		});
 		$("#performances-all").click(function(e) {
