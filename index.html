@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="utf-8"/>
 <title>Mill Road Winter Fair 2019</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap 4 -->
@@ -59,6 +60,7 @@ function keepNavSticky() {
 	}
   }
 } 
+var scrollHeight = 0;
 
 $(document).ready(function() {
 	header = $("#stickyHeader");
@@ -70,7 +72,12 @@ $(document).ready(function() {
 	body_original_offset = original_tab_offset.top - sticky;
 	body_original_margin_top = body.css('margin-top');
 	$(document).on("show.bs.tab", function (e) {
-		window.scrollTo(0,0);
+		scrollHeight = $(document).scrollTop();
+		console.log("show", scrollHeight);
+	});
+	$(document).on("shown.bs.tab", function (e) {
+		$(window).scrollTop(scrollHeight);
+		console.log("shown", $(document).scrollTop());
 	});
 });
 </script>
@@ -120,6 +127,8 @@ $(document).ready(function() {
 					data-toggle="tab" href="#search" 
 					role="tab" aria-controls="search" aria-selected="false">Search</a>
 			</li>
+		</ul>
+		<ul class="nav nav-tabs" id="mrwfFilters">
 		</ul>
 	</div>
 	<div class="tab-content" id="mrwfNavContent">

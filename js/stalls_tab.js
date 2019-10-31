@@ -1,5 +1,29 @@
+var shop_categories = [
+	["Christmas","christmas"],
+	["Textiles/knits","textiles"],
+	["Books", "books"],
+	["Art/cards", "arts"],
+	["Jewellery/hair accessories", "jewellery"],
+	["Pots/ceramics", "pots"],
+	["Well being", "wellbeing"],
+	["Gifts", "gifts"],
+	["Charity", "charity"],
+	["Community", "community"],
+	["Environmental", "environmental"],
+	["Drinks", "drinks"],
+	["Gourmet", "gourmet"],
+	["Street Food", "streetfood"],
+	["Treats", "treats"],
+];
+
 function render_shop(shop, destination) {
-	var contents = "<div class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
+	var data_attributes = "";
+	shop_categories.forEach(function(catArray) {
+		if (shop[catArray[1]]) {
+			data_attributes += " data-" + catArray[1] + "=1";
+		}
+	});
+	var contents = "<div data-location=\"" + shop.location + "\"" + data_attributes + " class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
 	if (shop.url) {
 		var protocol = shop.url.startsWith("https://") ? "https://": "http://";
 		var url = shop.url.startsWith(protocol) ? shop.url.substring(protocol.length) : shop.url;
@@ -18,6 +42,33 @@ $(document).ready(function() {
 	var shops = [];
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\"}'></div>");
 
+	$("#shops-tab").on("show.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("<li class=\"nav-item\"><a class=\"nav-link\" id=\"stalls-all\" href=\"#\">All</a></li>");
+		shop_categories.forEach(function (catArray) {
+			filter.append("<li class=\"nav-item\"><a class=\"nav-link stalls-filter\" href=\"#\" data-category=\"" + catArray[1] + "\">" + catArray[0] + "</a></li>");
+		});
+		$("#stalls-all").click(function(e) {
+			e.preventDefault();
+			$("#shops .grid .shop_elem").show();
+		});
+		$(".stalls-filter").click(function(e) {
+			e.preventDefault();
+			var category = $(this).data("category");
+			$("#shops .grid .shop_elem").each(function (i, item) {
+				if ($(item).data(category)) {
+					$(item).show();
+				} else {
+					$(item).hide();
+				}
+			});		
+		});
+	});
+	$("#shops-tab").on("hide.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("");
+	});
+
 	function process_spreadsheet(data) {
 		var entry = data.feed.entry;
 		var searchables = [];
@@ -26,7 +77,22 @@ $(document).ready(function() {
 				name: this.gsx$name?this.gsx$name.$t:this.gsx$stallname.$t,
 				description: this.gsx$stalldescription?this.gsx$stalldescription.$t:this.gsx$description.$t,
 				url: this.gsx$url?this.gsx$url.$t:this.gsx$stallwebsite.$t,
-				location: map_location(this.gsx$location.$t)
+				location: map_location(this.gsx$location.$t),
+				arts: this.gsx$artcards?!(!this.gsx$artcards.$t):false,
+				books: this.gsx$books?!(!this.gsx$books.$t):false,
+				charity: this.gsx$charity?!(!this.gsx$charity.$t):false,
+				christmas: this.gsx$christmas?!(!this.gsx$christmas.$t):false,
+				community: this.gsx$community?!(!this.gsx$community.$t):false,
+				environmental: this.gsx$environmental?!(!this.gsx$environmental.$t):false,
+				gifts : this.gsx$gifts?!(!this.gsx$gifts.$t):false,
+				jewellery : this.gsx$jewelleryhairaccessories?!(!this.gsx$jewelleryhairaccessories.$t):false,
+				pots : this.gsx$potsceramics?!(!this.gsx$potsceramics.$t):false,
+				textiles: this.gsx$textilesknits?!(!this.gsx$textilesknits.$t):false,
+				wellbeing: this.gsx$wellbeing?!(!this.gsx$wellbeing.$t):false,
+				drinks: this.gsx$drinks?!(!this.gsx$drinks.$t):false,
+				gourmet: this.gsx$gourmet?!(!this.gsx$gourmet.$t):false,
+				streetfood: this.gsx$streetfood?!(!this.gsx$streetfood.$t):false,
+				treats: this.gsx$treats?!(!this.gsx$treats.$t):false,
 				// TODO add properties for filters
 			};
 
@@ -34,14 +100,14 @@ $(document).ready(function() {
 			searchables.push(item);
 			shops.push(item);
 		});
-		shops.sort(function (a, b) {
+		searchables.sort(function (a, b) {
 			var location_diff = a.location.localeCompare(b.location);
 			if (location_diff == 0) {
 				return a.name.localeCompare(b.name);
 			}
 			return location_diff;
 		});
-		shops.forEach(function(item) {
+		searchables.forEach(function(item) {
 			render_shop(item, grid);
 		});
 

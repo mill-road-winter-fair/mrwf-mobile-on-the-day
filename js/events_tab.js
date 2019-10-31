@@ -1,5 +1,5 @@
 function render_event(event, destination) {
-	var contents = "<div class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
+	var contents = "<div class=\"shop_elem\"" + (event.from?" data-from=\"" + event.from + "\"":"") + "" + (event.to?" data-to=\"" + event.to + "\"":"") +"><div class=\"shop_content\"><div class=\"shop_header\">";
 	if (event.url) {
 		var protocol = event.url.startsWith("https://") ? "https://": "http://";
 		var url = event.url.startsWith(protocol) ? event.url.substring(protocol.length) : event.url;
@@ -9,21 +9,70 @@ function render_event(event, destination) {
 	if (event.url) {
 		contents += "</a>";
 	}
+	contents += "</div><div class=\"shop_location\">" + event.location + "</div>";
 	if (event.from) {
 		if (event.to) {
-			contents += "<p style=\"padding-top:10px;\">" + event.from + " - " + event.to + "</p>";
+			contents += "<p>" + event.from + " - " + event.to + "</p>";
 		}
 		else {
-			contents += "<p style=\"padding-top:10px;\">Starting " + event.from + "</p>";
+			contents += "<p>Starting " + event.from + "</p>";
 		}
 	}
-	contents += "</div><div class=\"shop_location\">" + event.location + "</div><p>" + event.description + "</p></div></div>";
+	contents += "<p>" + event.description + "</p></div></div>";
 	destination.append($(contents));
 }
 
 $(document).ready(function() {
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\" }'></div>");
-	
+
+	$("#events-tab").on("show.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-all\">All</a></li>");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-morning\">Morning</a></li>");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-afternoon\">Afternoon</a></li>");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-all-day\">All Day</a></li>");
+		$("#event-all").click(function(e) {
+			e.preventDefault();
+			$("#events .grid .shop_elem").show();
+		});
+
+		$("#event-morning").click(function(e) {
+			e.preventDefault();
+			$("#events .grid .shop_elem").each(function (i, item) {
+				if ($(item).data("from")&&$(item).data("from") < "12:00") {
+					$(item).show();
+				} else {
+					$(item).hide();
+				}
+			});		
+		});
+		$("#event-all-day").click(function(e) {
+			e.preventDefault();
+			$("#events .grid .shop_elem").each(function (i, item) {
+				if ($(item).data("from")) {
+					$(item).hide();
+				} else {
+					$(item).show();
+				}
+			});		
+		});
+		$("#event-afternoon").click(function(e) {
+			e.preventDefault();
+			$("#events .grid .shop_elem").each(function (i, item) {
+				if ($(item).data("from")&&$(item).data("from") > "12:00"||$(item).data("to")&&$(item).data("to") > "12:00") {
+					$(item).show();
+				} else {
+					$(item).hide();
+				}
+			});		
+		});
+	});
+	$("#events-tab").on("hide.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("");
+	});
+
 	function get_event_data () {
 		//var spreadsheetID = "1R9VGdWmTecqviQ179A-QOOaWl3v1zm2Srgue09q0mqM";
 		// process data

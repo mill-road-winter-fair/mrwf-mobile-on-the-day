@@ -57,7 +57,6 @@ let _relevant_keys = [];
 let _search;
 function add_searchable_items(list, searchable_properties) {
 	_search_list = _search_list.concat(list);
-	console.log("Now searching over", _search_list);
 	_relevant_keys = _relevant_keys.concat(searchable_properties).filter(only_unique);
 	_search = new Fuse(_search_list, { threshold: 0.33, keys: _relevant_keys,  });
 }

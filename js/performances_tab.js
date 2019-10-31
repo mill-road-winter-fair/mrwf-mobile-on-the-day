@@ -1,5 +1,5 @@
 function render_performance(performance, destination) {
-	var contents = "<div class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
+	var contents = "<div class=\"shop_elem\" data-from=\"" + performance.from + "\" data-to=\"" + performance.to + "\"><div class=\"shop_content\"><div class=\"shop_header\">";
 	if (performance.performer&&performance.performer.url) {
 		var protocol = performance.performer.url.startsWith("https://") ? "https://": "http://";
 		var url = performance.performer.url.startsWith(protocol) ? performance.performer.url.substring(protocol.length) : performance.performer.url;
@@ -39,7 +39,46 @@ $(document).ready(function() {
 	var performers = [];
 	var performances = [];
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\" }'></div>");
-			
+	var categories = [
+		["10am", "10"],
+		["11am", "11"],
+		["12pm", "12"],
+		["1pm", "13"],
+		["2pm", "14"],
+		["3pm", "15"],
+		["4pm", "16"]
+	];
+
+	$("#performances-tab").on("show.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link\" href=\"#\" id=\"performances-all\">All</a></li>");
+		categories.forEach(function (catArray) {
+			filter.append("<li class=\"nav-item\"><a class=\"nav-link performances-filter\" href=\"#\" data-time=\"" + catArray[1] + "\">" + catArray[0] + "</a></li>");
+		});
+		$("#performances-all").click(function(e) {
+			e.preventDefault();
+			$("#performances .grid .shop_elem").show();
+		});
+		$(".performances-filter").click(function(e) {
+			e.preventDefault();
+			var time = $(this).data("time");
+			$("#performances .grid .shop_elem").each(function (i, item) {
+				if ($(item).data("from").startsWith(time) || $(item).data("to").startsWith(time)) {
+					$(item).show();
+				} else {
+					$(item).hide();
+				}
+			});		
+		});
+	});
+
+	
+
+	$("#performances-tab").on("hide.bs.tab", function (e) {	
+		var filter= $("#mrwfFilters");
+		filter.html("");
+	});
 	function get_music_data () {
 		// first get all the performers.
 		var url = "https://spreadsheets.google.com/feeds/list/1lE6NhqbzP8LxCpbQdRHDE-EnQ0dxSGOuxSSVznYLYUo/od6/public/values?alt=json";

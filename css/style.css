@@ -33,6 +33,36 @@ ul.nav {
 	color: #FF6666;
 }
 
+#mrwfFilters {
+	font-weight: bold;
+	margin-top: -1px;
+	color: #FF6666;
+	background-color: #cc9900;
+	font-size:.75em;
+}
+
+#mrwfFilters a:hover {
+	color: #2b7028;
+}
+
+#mrwfFilters .nav-link {
+	padding:1px;
+	color:#2b7028;
+}
+
+#mrwfFilters .nav-item {
+	padding:1px 5px;
+}
+#mrwfFilters {
+	padding-left:.5rem;
+}
+
+#mrwfFilters .nav-link.active {
+	background-color: #cc9900;
+	border-color: #cc9900;
+	color: #FF6666;
+}
+
 .header-img { 
 	height:60px;
 }
