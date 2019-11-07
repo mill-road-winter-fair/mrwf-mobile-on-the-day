@@ -4,6 +4,7 @@ ul.nav {
 
 .nav-link {
 	color: #FF6666;
+	padding: .5em .75em;
 }
 
 .tab-img {

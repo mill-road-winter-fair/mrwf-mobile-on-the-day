@@ -1,12 +1,12 @@
 // Categories to show on the page
 var shop_categories = [
 	["Christmas","christmas"],
-	["Textiles/knits","textiles"],
+	["Textiles","textiles"],
 	["Books", "books"],
-	["Art/cards", "arts"],
-	["Jewellery/hair accessories", "jewellery"],
-	["Pots/ceramics", "pots"],
-	["Well being", "wellbeing"],
+	["Art+Cards", "arts"],
+	["Accessories", "jewellery"],
+	["Ceramics", "pots"],
+	["Wellbeing", "wellbeing"],
 	["Gifts", "gifts"],
 	["Charity", "charity"],
 	["Community", "community"],
