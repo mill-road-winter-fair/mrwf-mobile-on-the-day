@@ -37,6 +37,8 @@
 <!-- For the shop tab -->
 <link rel="stylesheet" href="css/shop_tab.css">
 <script src="js/stalls_tab.js"></script>
+<!-- For the map tab -->
+<script src="js/map_tab.js"></script>
 <!-- For the performances tab -->
 <link rel="stylesheet" href="css/performances_tab.css">
 <script src="js/performances_tab.js"></script>
@@ -94,8 +96,7 @@ $(document).ready(function() {
 <body>
 	<div id="header-info">
 		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/mrwf-mobile-logo-negative.png" style="max-width: 85%; max-height:3%;">
-		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/date-time-inverse.png" style="height:3%;"
-		<!-- Navigation, using nav-tab (https://getbootstrap.com/docs/4.0/components/navs/#javascript-behavior) -->
+		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/date-time-inverse.png" style="height:3%;">
 		<div class="header-item" id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
 		<div class="header-item">THE DATA ON THIS PAGE IS FROM 2018. THIS IS A DESIGN PROTOTYPE ONLY.</div>
 	</div>
@@ -141,10 +142,38 @@ $(document).ready(function() {
 		</ul>
 	</div>
 	<div class="tab-content" id="mrwfNavContent">
-		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">This is the home content</div>
-
+		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+<div id="main-container">
+<h3 style="margin:auto; padding-bottom: 10px;">Welcome to the Mill Road Winter Fair 2019!</h3>
+<div id="main-content">
+<p>Every year, on the first Saturday in December, Mill Road is transformed. People take over from cars, shopkeepers turn out and set up their stalls, and we provide spaces for local businesses and charities to sell crafts, gifts and refreshments all along the street. Interspersed with the stalls are buskers, circus performers, dancers, poets and storytellers to entertain and inspire.</p>
+<p>The theme of this year's fair is 'Nature', so if you are reading this in advance of the fair please start thinking about ideas - for costumes, stall decorations, parade props, etc.</p>
+<p>The Winter Fair is run entirely by volunteers and we need your donations to help stage it every year. <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
+<img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
+</form></p>
+<div id="key-events">
+    <h3>Key events</h3>
+	<ul>
+		<li><div class="event-time">9.00</div>Road closure begins</li>
+		<li><div class="event-time">10.30</div>Winter Fair begins</li>
+		<li><div class="event-time">10.30</div>Fire engine pull, East Road to the bridge</li>
+		<li><div class="event-time">10.30</div>Opening ceremony, Ditchburn Gardens</li>
+		<li><div class="event-time">11.30</div>Unveiling of bridge artwork</li>
+		<li><div class="event-time">12.00</div>Parade, Millcroft Court to Petersfield</li>
+		<li><div class="event-time">15.20</div>Final parade, the bridge to Petersfield</li>
+		<li><div class="event-time">16.15</div>Winter Fair ends</li>
+		<li><div class="event-time">17.30</div>Roads re-open</li>
+	</ul>
+</div>
+</div>
+</div>
+</div>
 		<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
-			<embed id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1" width="370" height="480"></embed>
+			<img id="map-img" class="map" src="http://www.millroadwinterfair.org/assets/doc/2019/MRWF 2019 map.jpg">
+			<embed class="map" id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1"></embed>
 		</div>
 		<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab"><!-- These are the shops --></div>
 		<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab"><!-- This is the busking listing --></div>

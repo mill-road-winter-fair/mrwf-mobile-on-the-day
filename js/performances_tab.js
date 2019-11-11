@@ -84,7 +84,7 @@ $(document).ready(function() {
 	});
 	function get_music_data () {
 		// first get all the performers.
-		var url = "https://spreadsheets.google.com/feeds/list/1lE6NhqbzP8LxCpbQdRHDE-EnQ0dxSGOuxSSVznYLYUo/od6/public/values?alt=json";
+		var url = "https://spreadsheets.google.com/feeds/list/1AEWvsdzdom0ZduRJK2DnUGVWUo_1UG4L8iXPPMgKwh4/od6/public/values?alt=json";
 		$("#performances").html("");
 		$.getJSON(url, function(data) {
 			var entry = data.feed.entry;
@@ -99,7 +99,7 @@ $(document).ready(function() {
 			});
 
 			// then get the times and locations of their performances
-			var timesUrl = "https://spreadsheets.google.com/feeds/list/1wWkjauTsBuTCWG1hjW5xJB9XizO8YHR07vkL-9SG6x0/od6/public/values?alt=json";
+			var timesUrl = "https://spreadsheets.google.com/feeds/list/1escaqwhaWJ9OeTKJJ8s23Tw6A7IRdDWxsi7nOMeaT0c/od6/public/values?alt=json";
 			$.getJSON(timesUrl, function(data) {
 				var entry = data.feed.entry;
 				$(entry).each(function() {

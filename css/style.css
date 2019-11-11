@@ -19,6 +19,10 @@ ul.nav {
 	background-color: #CC3333;
 }
 
+#map-img {
+	width:350px;
+}
+
 #mrwfNav {
 	font-weight: bold;
 	color: #FF6666;
@@ -78,6 +82,11 @@ ul.nav {
 	display:block;
 }
 
+.map {
+ 	width:370px;
+	min-height:480px;
+}
+
 .tab-content {
 	padding: 30px;
 }
@@ -105,6 +114,35 @@ ul.nav {
 .header-item button {
 	background-color: #cc9900;
 	color: #FFFFFF;
+}
+
+#main-container {
+    column-width: 350px;
+    column-gap: 10px;
+}
+
+#main-content {
+	min-height: 500px;
+}
+
+#key-events {
+	padding: 15px 25px;
+	margin: 0px 15px;
+  	width: 350px;
+	background-color: #66AAFF;
+	display: block;
+    color: #FFFFFF;
+}
+
+#key-events ul {
+    list-style: none;
+	margin-left: -2.5em;
+}
+
+#key-events li .event-time {
+	font-weight: bold;
+	display: inline;
+	padding-right: 10px;
 }
 
 body {
