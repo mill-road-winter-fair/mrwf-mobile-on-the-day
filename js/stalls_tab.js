@@ -3,14 +3,14 @@ var shop_categories = [
 	["Christmas","christmas"],
 	["Textiles","textiles"],
 	["Books", "books"],
-	["Art+Cards", "arts"],
-	["Accessories", "jewellery"],
-	["Ceramics", "pots"],
-	["Wellbeing", "wellbeing"],
-	["Gifts", "gifts"],
+	["Art/Papercraft", "arts"],
+	["Jewellery", "jewellery"],
+	["Ceramic & Glass", "pots"],
+	["Woodcraft", "woodcraft"],
+	["Cosmetics", "cosmetics"],
 	["Charity", "charity"],
 	["Community", "community"],
-	["Environmental", "environmental"],
+	["Nature / Environmental", "environmental"],
 	["Drinks", "drinks"],
 	["Gourmet", "gourmet"],
 	["Street Food", "streetfood"],
@@ -34,17 +34,17 @@ function render_shop(shop, destination) {
 	contents += shop.name;
 	if (shop.url) {
 		contents += "</a>";
-	} 
+	}
 	contents += "</div><div class=\"shop_location\">" + shop.location + "</div><p>" + shop.description + "</p></div></div>";
 	destination.append($(contents));
 }
 
-$(document).ready(function() {	
+$(document).ready(function() {
 	// The container to show the shops as a grid.
 	var grid = $("<div class=\"grid\" data-packery='{ \"itemSelector\": \".shop_elem\"}'></div>");
 
 	// Add category filters to the navigation when activating this tab
-	$("#shops-tab").on("show.bs.tab", function (e) {	
+	$("#shops-tab").on("show.bs.tab", function (e) {
 		var filter= $("#mrwfFilters");
 		filter.html("<li class=\"nav-item\"><a class=\"nav-link\" id=\"stalls-all\" href=\"#\">All</a></li>");
 		shop_categories.forEach(function (catArray) {
@@ -64,15 +64,15 @@ $(document).ready(function() {
 				} else {
 					$(item).hide();
 				}
-			});		
+			});
 		});
 	});
 	// Clear filters when moving away from this tab
-	$("#shops-tab").on("hide.bs.tab", function (e) {	
+	$("#shops-tab").on("hide.bs.tab", function (e) {
 		var filter= $("#mrwfFilters");
 		filter.html("");
 	});
-	
+
 	// Parse a json data source for stalls
 	function process_spreadsheet(data) {
 		var entry = data.feed.entry;
@@ -85,23 +85,23 @@ $(document).ready(function() {
 				url: this.gsx$url?this.gsx$url.$t:this.gsx$stallwebsite.$t,
 				location: map_location(this.gsx$location.$t),
 				// Add categories for filters
-				arts: this.gsx$artcards?!(!this.gsx$artcards.$t):false,
+				arts: this.gsx$artpapercraft?!(!this.gsx$artpapercraft.$t):false,
 				books: this.gsx$books?!(!this.gsx$books.$t):false,
 				charity: this.gsx$charity?!(!this.gsx$charity.$t):false,
 				christmas: this.gsx$christmas?!(!this.gsx$christmas.$t):false,
 				community: this.gsx$community?!(!this.gsx$community.$t):false,
-				environmental: this.gsx$environmental?!(!this.gsx$environmental.$t):false,
-				gifts : this.gsx$gifts?!(!this.gsx$gifts.$t):false,
-				jewellery : this.gsx$jewelleryhairaccessories?!(!this.gsx$jewelleryhairaccessories.$t):false,
-				pots : this.gsx$potsceramics?!(!this.gsx$potsceramics.$t):false,
-				textiles: this.gsx$textilesknits?!(!this.gsx$textilesknits.$t):false,
-				wellbeing: this.gsx$wellbeing?!(!this.gsx$wellbeing.$t):false,
+				environmental: this.gsx$natureenvironmental?!(!this.gsx$natureenvironmental.$t):false,
+				jewellery : this.gsx$jewellery?!(!this.gsx$jewellery.$t):false,
+				pots : this.gsx$ceramicglass?!(!this.gsx$ceramicglass.$t):false,
+				textiles: this.gsx$textiles?!(!this.gsx$textiles.$t):false,
+				woodcraft: this.gsx$woodcraft?!(!this.gsx$woodcraft.$t):false,
+				cosmetics: this.gsx$cosmetics?!(!this.gsx$cosmetics.$t):false,
 				drinks: this.gsx$drinks?!(!this.gsx$drinks.$t):false,
 				gourmet: this.gsx$gourmet?!(!this.gsx$gourmet.$t):false,
 				streetfood: this.gsx$streetfood?!(!this.gsx$streetfood.$t):false,
 				treats: this.gsx$treats?!(!this.gsx$treats.$t):false
 			};
-
+			
 			if (!item.location) return;
 			searchables.push(item);
 		});
@@ -128,8 +128,8 @@ $(document).ready(function() {
 		// clear the tab
 		$("#shops").html("");
 		// process the stalls data into categories
-		$.getJSON("https://spreadsheets.google.com/feeds/list/1XL5sVmJbLyYYkSrwayyKRBNxkiVxXWbZTUXNdaD6Eu8/od6/public/values?alt=json", process_spreadsheet);
-		$.getJSON("https://spreadsheets.google.com/feeds/list/1kKJSpomSOHyGAO-Y3JRIfGvMs7S5TeVKLEewLEiBeK0/od6/public/values?alt=json", process_spreadsheet);
+		$.getJSON("https://spreadsheets.google.com/feeds/list/1M5nT__a2Hc8tR8tC8FCNWhthuEAtl2MjwXf89O5_Ba8/3/public/values?alt=json", process_spreadsheet);
+		$.getJSON("https://spreadsheets.google.com/feeds/list/1M5nT__a2Hc8tR8tC8FCNWhthuEAtl2MjwXf89O5_Ba8/2/public/values?alt=json", process_spreadsheet);
 		$("#shops").append(grid);
 	}
 

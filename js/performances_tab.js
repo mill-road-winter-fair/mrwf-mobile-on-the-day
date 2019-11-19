@@ -1,6 +1,15 @@
 // Render an individual performance on the page (also used by the search page)
 function render_performance(performance, destination) {
-	var contents = "<div class=\"shop_elem\" data-from=\"" + performance.from + "\" data-to=\"" + performance.to + "\"><div class=\"shop_content\"><div class=\"shop_header\">";
+	// Something went wrong
+	if (!performance.performer) {
+		console.log("No performer", performance);
+		return;
+	}
+	var contents = "<div class=\"shop_elem\" data-from=\"" + performance.from + "\" data-to=\"" + performance.to + "\">";
+	if (performance.performer.image) {
+		contents += "<img class=\"performer-img\" src=\"" + performance.performer.image + "\"/>";
+	}
+	contents += "<div class=\"shop_content\"><div class=\"shop_header\">";
 	if (performance.performer&&performance.performer.url) {
 		var protocol = performance.performer.url.startsWith("https://") ? "https://": "http://";
 		var url = performance.performer.url.startsWith(protocol) ? performance.performer.url.substring(protocol.length) : performance.performer.url;
@@ -9,7 +18,7 @@ function render_performance(performance, destination) {
 	contents += performance.name;
 	if (performance.performer&&performance.performer.url) {
 		contents += "</a>";
-	} 
+	}
 	contents += "</div><div class=\"shop_location\">" + performance.location + "</div><p>"+ performance.from;
 	if (performance.to) {
 		contents += " - " + performance.to;
@@ -17,7 +26,7 @@ function render_performance(performance, destination) {
 	contents += "</p>";
 	if (performance.performer) {
 		contents += "<p>" + performance.performer.description + "</p>";
-		/* List other performances this performer is doing. 
+		/* List other performances this performer is doing.
 		if (performance.performer.performances.length > 1) {
 			contents += "<p>Also performing at:</p>";
 			for (var i in performance.performer.performances) {
@@ -35,7 +44,7 @@ function render_performance(performance, destination) {
 	}
 	contents += "</div></div>";
 	destination.append($(contents));
-}			
+}
 
 $(document).ready(function() {
 
@@ -52,7 +61,7 @@ $(document).ready(function() {
 		["4pm", "16"]
 	];
 
-	$("#performances-tab").on("show.bs.tab", function (e) {	
+	$("#performances-tab").on("show.bs.tab", function (e) {
 		var filter= $("#mrwfFilters");
 		filter.html("");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link\" href=\"#\" id=\"performances-all\">All</a></li>");
@@ -72,13 +81,13 @@ $(document).ready(function() {
 				} else {
 					$(item).hide();
 				}
-			});		
+			});
 		});
 	});
 
-	
 
-	$("#performances-tab").on("hide.bs.tab", function (e) {	
+
+	$("#performances-tab").on("hide.bs.tab", function (e) {
 		var filter= $("#mrwfFilters");
 		filter.html("");
 	});
@@ -93,6 +102,7 @@ $(document).ready(function() {
 					name: this.title.$t,
 					description: this.gsx$description.$t,
 					url: this.gsx$url.$t,
+					image: this.gsx$image?this.gsx$image.$t:'',
 					// tracking performances this performer is at
 					performances: []
 				});
@@ -129,14 +139,14 @@ $(document).ready(function() {
 				performances.forEach(function(performance) {
 					render_performance(performance, grid);
 				});
-				
+
 				performances_map = performances.map(function(item) {
 					return { performance: item };
 				});
 				// Add to the search indexes
 				add_searchable_items(performances_map, ["performance.name", "performance.from", "performance.performer.name", "performance.performer.description"]);
-			});	
-			$("#performances").append(grid);	
+			});
+			$("#performances").append(grid);
 		});
 	}
 	// query for data

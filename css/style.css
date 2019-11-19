@@ -9,7 +9,7 @@ ul.nav {
 
 .tab-img {
 	height:90%;
-} 
+}
 
 .tab-pane, body{
 	background-color: #FFF;
@@ -68,7 +68,7 @@ ul.nav {
 	color: #FF6666;
 }
 
-.header-img { 
+.header-img {
 	height:60px;
 }
 
@@ -116,26 +116,33 @@ ul.nav {
 	color: #FFFFFF;
 }
 
-#main-container {
-    column-width: 350px;
-    column-gap: 10px;
+.donate-button {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width:150px;
 }
 
 #main-content {
 	min-height: 500px;
 }
 
-#key-events {
+#right-panel {
+	float:right;
+	display: inline;
 	padding: 15px 25px;
 	margin: 0px 15px;
-  	width: 350px;
-	background-color: #66AAFF;
-	display: block;
-    color: #FFFFFF;
+  width: 350px;
+}
+
+#key-events {
+	padding: 15px 25px;
+	background-color: #66AAFF;;
+  color: #FFFFFF;
 }
 
 #key-events ul {
-    list-style: none;
+  list-style: none;
 	margin-left: -2.5em;
 }
 

@@ -10,27 +10,28 @@
 
   gtag('config', 'UA-151724595-1');
 </script>
+
 <meta charset="utf-8"/>
 <title>Mill Road Winter Fair 2019</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap 4 -->
-<link 	rel="stylesheet" 
-		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" 
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+<link 	rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
 		crossorigin="anonymous">
 <!-- Javascript imports needed by bootstrap 4 (not slim version because we need async queries only in the full version) -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
-		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 		crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" 
-		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
 <!-- Allows users to search all the items in the page, Fuse -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
 <!-- Layout library -->
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.js"></script>
-<!-- Global styling --> 
+<!-- Global styling -->
 <link rel="stylesheet" href="css/style.css">
 <!-- Useful functions needed by lots of our javascript -->
 <script src="js/common.js"></script>
@@ -50,6 +51,8 @@
 <script src="js/search_tab.js"></script>
 <!-- For the map tab -->
 <link rel="stylesheet" href="css/map_tab.css">
+<!-- For the thanks tab -->
+<link rel="stylesheet" href="css/thanks_tab.css">
 <script>
 // Specifically js for this layout
 // When the user scrolls the page, execute myFunction
@@ -70,11 +73,12 @@ function keepNavSticky() {
 	  body.css({'margin-top': body_original_margin_top});
 	}
   }
-} 
+}
 var scrollHeight = 0;
 
 $(document).ready(function() {
-	header = $("#stickyHeader");
+  var url = document.location.toString();
+  header = $("#stickyHeader");
 	body = $(".tab-content");
 // Get the offset position of the navbar
 	var offset = header.offset();
@@ -84,12 +88,18 @@ $(document).ready(function() {
 	body_original_margin_top = body.css('margin-top');
 	$(document).on("show.bs.tab", function (e) {
 		scrollHeight = $(document).scrollTop();
-		console.log("show", scrollHeight);
 	});
 	$(document).on("shown.bs.tab", function (e) {
 		$(window).scrollTop(scrollHeight);
-		console.log("shown", $(document).scrollTop());
 	});
+  if (url.match('#')) {
+      $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+  }
+
+  // Change hash for page-reload
+  $('.nav-tabs a').on('shown.bs.tab', function (e) {
+      window.location.hash = e.target.hash;
+  });
 });
 </script>
 </head>
@@ -98,43 +108,52 @@ $(document).ready(function() {
 		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/mrwf-mobile-logo-negative.png" style="max-width: 85%; max-height:3%;">
 		<img class="header-item header-img" src="http://www.millroadwinterfair.org/assets/img/system/date-time-inverse.png" style="height:3%;">
 		<div class="header-item" id="search-box"><input id="search-box-input" type="text" /><button id="search-box-button">Search</button></div>
-		<div class="header-item">THE DATA ON THIS PAGE IS FROM 2018. THIS IS A DESIGN PROTOTYPE ONLY.</div>
 	</div>
 	<div id="stickyHeader">
 		<ul class="nav nav-tabs" id="mrwfNav" role="tablist">
 			<li class="nav-item">
-				<a class="nav-link active" id="home-tab" 
-					data-toggle="tab" href="#home" 
+				<a class="nav-link active" id="home-tab"
+					data-toggle="tab" href="#home"
 					role="tab" aria-controls="home" aria-selected="true">Home</a>
 			</li>
 			<li class="nav-item">
-					<a class="nav-link"	id="map-tab" 
-					data-toggle="tab" href="#map" 
+					<a class="nav-link"	id="map-tab"
+					data-toggle="tab" href="#map"
 					role="tab" aria-controls="map" aria-selected="false">Map</a>
 			</li>
+      <li class="nav-item">
+				<a class="nav-link" id="events-tab"
+					data-toggle="tab" href="#events"
+					role="tab" aria-controls="events" aria-selected="false">What's On</a>
+			</li>
 			<li class="nav-item">
-				<a class="nav-link" id="shops-tab" 
-					data-toggle="tab" href="#shops" 
+				<a class="nav-link" id="shops-tab"
+					data-toggle="tab" href="#shops"
 					role="tab" aria-controls="shops" aria-selected="false">Stalls</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" id="performances-tab" 
-					data-toggle="tab" href="#performances" 
+				<a class="nav-link" id="performances-tab"
+					data-toggle="tab" href="#performances"
 					role="tab" aria-controls="music" aria-selected="false">Performances</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" id="events-tab" 
-					data-toggle="tab" href="#events" 
-					role="tab" aria-controls="events" aria-selected="false">Events</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="twitter-tab" 
-					data-toggle="tab" href="#twitter" 
+				<a class="nav-link" id="twitter-tab"
+					data-toggle="tab" href="#twitter"
 					role="tab" aria-controls="twitter" aria-selected="false">Twitter</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="thanks-tab"
+					data-toggle="tab" href="#thanks"
+					role="tab" aria-controls="thanks" aria-selected="false">Thanks</a>
+			</li>
+      <li class="nav-item">
+				<a class="nav-link" id="volunteering-tab"
+					data-toggle="tab" href="#volunteering"
+					role="tab" aria-controls="volunteering" aria-selected="false">Volunteer</a>
+			</li>
 			<li class="nav-item" style="display: none">
-				<a class="nav-link" id="search-tab" 
-					data-toggle="tab" href="#search" 
+				<a class="nav-link" id="search-tab"
+					data-toggle="tab" href="#search"
 					role="tab" aria-controls="search" aria-selected="false">Search</a>
 			</li>
 		</ul>
@@ -143,34 +162,37 @@ $(document).ready(function() {
 	</div>
 	<div class="tab-content" id="mrwfNavContent">
 		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-<div id="main-container">
-<h3 style="margin:auto; padding-bottom: 10px;">Welcome to the Mill Road Winter Fair 2019!</h3>
-<div id="main-content">
-<p>Every year, on the first Saturday in December, Mill Road is transformed. People take over from cars, shopkeepers turn out and set up their stalls, and we provide spaces for local businesses and charities to sell crafts, gifts and refreshments all along the street. Interspersed with the stalls are buskers, circus performers, dancers, poets and storytellers to entertain and inspire.</p>
-<p>The theme of this year's fair is 'Nature', so if you are reading this in advance of the fair please start thinking about ideas - for costumes, stall decorations, parade props, etc.</p>
-<p>The Winter Fair is run entirely by volunteers and we need your donations to help stage it every year. <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
-<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
-<img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
-</form></p>
-<div id="key-events">
-    <h3>Key events</h3>
-	<ul>
-		<li><div class="event-time">9.00</div>Road closure begins</li>
-		<li><div class="event-time">10.30</div>Winter Fair begins</li>
-		<li><div class="event-time">10.30</div>Fire engine pull, East Road to the bridge</li>
-		<li><div class="event-time">10.30</div>Opening ceremony, Ditchburn Gardens</li>
-		<li><div class="event-time">11.30</div>Unveiling of bridge artwork</li>
-		<li><div class="event-time">12.00</div>Parade, Millcroft Court to Petersfield</li>
-		<li><div class="event-time">15.20</div>Final parade, the bridge to Petersfield</li>
-		<li><div class="event-time">16.15</div>Winter Fair ends</li>
-		<li><div class="event-time">17.30</div>Roads re-open</li>
-	</ul>
-</div>
-</div>
-</div>
-</div>
+      <div id="main-container">
+        <div id="right-panel">
+          <div id="key-events">
+            <h3>Key events</h3>
+            <ul>
+              <li><div class="event-time">9.00</div>Road closure begins</li>
+              <li><div class="event-time">10.30</div>Winter Fair begins</li>
+              <li><div class="event-time">10.30</div>Fire engine pull, East Road to the bridge</li>
+              <li><div class="event-time">10.30</div>Opening ceremony, Ditchburn Gardens</li>
+              <li><div class="event-time">11.30</div>Unveiling of bridge artwork</li>
+              <li><div class="event-time">12.00</div>Parade, Millcroft Court to Petersfield</li>
+              <li><div class="event-time">15.20</div>Final parade, the bridge to Petersfield</li>
+              <li><div class="event-time">16.15</div>Winter Fair ends</li>
+              <li><div class="event-time">17.30</div>Roads re-open</li>
+            </ul>
+          </div>
+          <form class="donate-button" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+            <input type="hidden" name="cmd" value="_s-xclick">
+            <input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
+            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
+            <img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
+          </form>
+        </div>
+        <h3 style="margin:auto; padding-bottom: 10px;">Welcome to the Mill Road Winter Fair 2019!</h3>
+        <div id="main-content">
+          <p>Every year, on the first Saturday in December, Mill Road is transformed. People take over from cars, shopkeepers turn out and set up their stalls, and we provide spaces for local businesses and charities to sell crafts, gifts and refreshments all along the street. Interspersed with the stalls are buskers, circus performers, dancers, poets and storytellers to entertain and inspire.</p>
+          <p>The theme of this year's fair is 'Nature', so if you are reading this in advance of the fair please start thinking about ideas - for costumes, stall decorations, parade props, etc.</p>
+          <p>The Winter Fair is run entirely by volunteers and we need your donations to help stage it every year.</p>
+        </div>
+      </div>
+    </div>
 		<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
 			<img id="map-img" class="map" src="http://www.millroadwinterfair.org/assets/doc/2019/MRWF 2019 map.jpg">
 			<embed class="map" id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1"></embed>
@@ -179,7 +201,73 @@ $(document).ready(function() {
 		<div class="tab-pane fade" id="performances" role="tabpanel" aria-labelledby="performances-tab"><!-- This is the busking listing --></div>
 		<div class="tab-pane fade" id="events" role="tabpanel" aria-labelledby="events-tab"><!-- These are the events throughout the day --></div>
 		<div class="tab-pane fade" id="twitter" role="tabpanel" aria-labelledby="twitter-tab"><a class="twitter-timeline" href="https://twitter.com/MillRoadFair?ref_src=twsrc%5Etfw">Tweets by MillRoadWinterFair</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
-		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div> 
+		<div class="tab-pane fade" id="thanks" role="tabpanel" aria-labelledby="thanks-tab">
+      <fieldset class="thanks">
+        <legend>Thank you to our generous sponsors and donors</legend>
+        <p>The Mill Road Winter Fair is only made possible with the generous support of our sponsors and donors, a huge thank you to them all.</p>
+        <p>Thank you also to those individuals in the community who have made personal donations and those who have kindly volunteered their time.</p>
+        <form class="donate-button" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
+          <img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
+        </form>
+      </fieldset>
+      <fieldset class="thanks" id="sponsors">
+        <legend>Our Sponsors</legend>
+        <ul>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/bush.jpg"/>Bush sales</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/aru.png"/>Anglia Ruskin University</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/hugheshall.png"/>Hughes Hall</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/trinityhall.jpg"/>Trinity Hall</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/al-amin.png"/>Al-Amin</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/cambridge_classics.png"/>Cambridge Classics</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/regalstar_logos.png"/>Regalstar Catering Ltd.</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/sab.png"/>St. Andrews bureau</li>
+        </ul>
+      </fieldset>
+      <fieldset class="thanks" id="donors">
+        <legend>Our Donors</legend>
+        <ul>
+          <li>Thirsty</li>
+          <li>Churchill College</li>
+          <li>Queens' College</li>
+          <li>Trinity College</li>
+          <li>Emmanuel College</li>
+          <li>Gonville & Caius College</li>
+        </ul>
+      </fieldset>
+      <fieldset class="thanks" id="special-mentions">
+        <legend>Special Mentions</legend>
+        <ul>
+          <li>
+            <div class="special-why">Illustrations</div>
+            <div class="special-who"><a target="_blank" href="https://sammotherwell.weebly.com/">Sam Motherwell</a></div>
+          </li>
+          <li>
+            <div class="special-why">Design</div>
+            <div class="special-who"><a target="_blank" href="http://www.georgiakingdesign.com"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/gkd.png" alt="Georgia King Design"></a></div>
+          </li>
+          <li>
+            <div class="special-why">Printing</div>
+            <div class="special-who"><a target="_blank" href="http://www.langhampress.co.uk"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/langham-press.png" alt="Langham Press"></a></div>
+          </li>
+          <li>
+            <div class="special-why">Safefy Advice</div>
+            <div class="special-who"><a target="_blank" href="http://www.splendidevents.org.uk"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/splendid-events.png" alt="Spendid Events"></a></div>
+          </li>
+          <li>
+            <div class="special-why">Waste &amp; Recycling</div>
+            <div class="special-who"><a target="_blank" href="http://www.greatercambridgewaste.org/"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/Greater-Cambridge-shared-waste.jpg" alt="Greater Cambridge Shared Waste"/></a></div>
+          </li>
+        </ul>
+      </fieldset>
+		</div>
+    <div class="tab-pane fade" id="volunteering" role="tabpanel" aria-labelledby="volunteering-tab">
+      <p><span style="font-weight: normal;"> </span></p>
+      <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeD4vKIgY0iifzxlVr-wRRsy0JpebfaXcYJkDqx7g8e3U4-9A/viewform?embedded=true" width="640" height="1024" frameborder="0" marginwidth="0" marginheight="0">Loading&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;hellip;</iframe></p>
+    </div>
+		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div>
 	</div>
 </body>
 </html>

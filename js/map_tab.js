@@ -8,7 +8,7 @@ $(document).ready(function() {
 		$("#map-static").click(function(e) {
 			e.preventDefault();
 			$("#map-img").show();
-			$("#map-iframe").hide();
+			$("#map-iframe").hide	();
 		});
 		$("#map-google").click(function(e) {
 			e.preventDefault();

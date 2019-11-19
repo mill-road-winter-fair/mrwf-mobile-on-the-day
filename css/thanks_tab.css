@@ -1,0 +1,28 @@
+.sponsor-logo {
+  max-width: 150px;
+  max-height: 150px;
+  padding: 5px;
+  display:block;
+}
+
+fieldset.thanks legend{
+  text-align: center;
+  font-weight: bold;
+}
+fieldset.thanks ul {
+  list-style-type: none;
+  text-align: center;
+}
+
+fieldset.thanks ul li {
+  display:inline-block;
+}
+
+.special-why {
+  font-weight: bold;
+  display:inline;
+}
+
+#donors li {
+  border-bottom: dotted 1px;
+}
