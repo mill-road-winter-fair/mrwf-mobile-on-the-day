@@ -28,6 +28,10 @@ function render_shop(shop, destination) {
 	var contents = "<div data-location=\"" + shop.location + "\"" + data_attributes + " class=\"shop_elem\"><div class=\"shop_content\"><div class=\"shop_header\">";
 	if (shop.url) {
 		var protocol = shop.url.startsWith("https://") ? "https://": "http://";
+		if (shop.url.includes('@')) {
+			// it's an email so different approach is needed
+			protocol = "mailto:";
+		}
 		var url = shop.url.startsWith(protocol) ? shop.url.substring(protocol.length) : shop.url;
 		contents += "<a target=\"_blank\" href=\"" + protocol + url + "\">";
 	}

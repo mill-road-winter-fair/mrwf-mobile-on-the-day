@@ -50,7 +50,7 @@
 <link rel="stylesheet" href="css/search_tab.css">
 <script src="js/search_tab.js"></script>
 <!-- For the map tab -->
-<link rel="stylesheet" href="css/map_tab.css">
+<!--<link rel="stylesheet" href="css/map_tab.css">-->
 <!-- For the thanks tab -->
 <link rel="stylesheet" href="css/thanks_tab.css">
 <script>
@@ -93,7 +93,21 @@ $(document).ready(function() {
 		$(window).scrollTop(scrollHeight);
 	});
   if (url.match('#')) {
-      $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+      // Handle other urls used in the past
+      var target = url.split('#')[1];
+      switch(target) {
+        case "stalls":
+        case "food-and-drink-2019":
+          target = "shops";
+          break;
+        case "whats-on-2019":
+          target = "events";
+          break;
+        case "mill-road-music":
+          target="performances";
+          break;
+      }
+      $('.nav-tabs a[href="#' + target + '"]').tab('show');
   }
 
   // Change hash for page-reload
@@ -178,23 +192,42 @@ $(document).ready(function() {
               <li><div class="event-time">17.30</div>Roads re-open</li>
             </ul>
           </div>
+        </div>
+        <h3 style="margin:auto; padding-bottom: 10px;">Welcome to the Mill Road Winter Fair 2019!</h3>
+        <div id="main-content">
+          <p>Every year, on the first Saturday in December, Mill Road is transformed. People take over from cars, shopkeepers turn out and set up their stalls, and we provide spaces for local businesses and charities to sell crafts, gifts and refreshments all along the street. Interspersed with the stalls are buskers, circus performers, dancers, poets and storytellers to entertain and inspire.</p>
+          <p>The theme of this year's fair is 'Nature', so if you are reading this in advance of the fair please start thinking about ideas - for costumes, stall decorations, parade props, etc.</p>
+          <p>The Winter Fair is run entirely by volunteers and we need your donations to help stage it every year. If you would like to get involved or donate we would very much appreciate it.</p>
+
           <form class="donate-button" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
             <input type="hidden" name="cmd" value="_s-xclick">
             <input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
             <img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
           </form>
-        </div>
-        <h3 style="margin:auto; padding-bottom: 10px;">Welcome to the Mill Road Winter Fair 2019!</h3>
-        <div id="main-content">
-          <p>Every year, on the first Saturday in December, Mill Road is transformed. People take over from cars, shopkeepers turn out and set up their stalls, and we provide spaces for local businesses and charities to sell crafts, gifts and refreshments all along the street. Interspersed with the stalls are buskers, circus performers, dancers, poets and storytellers to entertain and inspire.</p>
-          <p>The theme of this year's fair is 'Nature', so if you are reading this in advance of the fair please start thinking about ideas - for costumes, stall decorations, parade props, etc.</p>
-          <p>The Winter Fair is run entirely by volunteers and we need your donations to help stage it every year.</p>
+          <a name="safety-and-road-closure" /><h4>Safety Information and Road Closure</h4>
+          <p>We do our best to ensure that the Mill Road Winter Fair is a safe and enjoyable event for all participants.</p>
+          <p>Stewards are available all day to assist visitors. They wear their fluorescent yellow safety jackets with “Mill Road Winter Fair” written on the back.</p>
+          <p>Meeting points along the road are marked with an ‘M’ in case people get lost. See the map here, pick up a leaflet or check the maps on the road on the day for details.</p>
+
+          <h5>First Aid and Control Centre</h5>
+          <p>The Control Centre is located at the Mill Road Baptist Church (on the Romsey side of Mill Road).</p>
+          <p>Anyone requiring First Aid is urged to contact the nearest steward or go to the First Aid point outside the Control Centre.</p>
+
+          <h5>Road closure</h5>
+          <p>On the day of the Fair, Mill Road is closed to traffic, including cyclists, between East Road and Coleridge Road from 9am until 5.30pm. Diversions are signposted. The rest of Mill Road and adjoining streets are open to traffic. In some circumstances, the direction of traffic in adjacent streets is different from normal and some road barriers normally closed are open.</p>
+          <p>Although the road is closed, we encourage everyone to exercise caution as there are occasional traffic movements including the possibility of movements from the emergency services. We ask that everyone remains alert and complies promptly with any instructions from stewards or emergency services.</p>
+          <a name="parking" /><h4>Parking Information</h4>
+          <p>During the Fair from 9.00am to 5.30pm Mill Road is closed to traffic. Gwydir Street Car Park is also closed from the previous evening until the end of Fair day as it is the site of the Food Fair. Great Eastern Street Car Park is also closed.</p>
+          <p>The nearest car parks are Queen Anne Car Park and The Grafton Centre Car Park.</p>
+          <p>You can look at the <a href="http://www.cambridge.gov.uk/parking">City Council's information on car parks</a>. Information about diversions in place due to the road closure can be found on the County Council website.</p>
+          <h5>Disabled parking</h5>
+          <p>With a Blue Badge you can 'park on single or double yellow lines for up to three hours in England and Wales except where there is a ban on loading or unloading or it causes an obstruction'. Look at the <a href="https://www.cambridge.gov.uk/free-parking-for-blue-badge-holders">City Council</a> and <a href="http://www.cambridgeshire.gov.uk/residents/travel-roads-and-parking/parking-permits-and-fines/blue-badges/">County Council</a> websites for more information on this.</p>
         </div>
       </div>
     </div>
 		<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
-			<img id="map-img" class="map" src="http://www.millroadwinterfair.org/assets/doc/2019/MRWF 2019 map.jpg">
+			<img id="map-img" class="map" src="http://www.millroadwinterfair.org/assets/doc/2019/MRWF%202019%20map.jpg">
 			<embed class="map" id="map-iframe" src="https://www.google.co.uk/maps/d/u/0/embed?mid=1G85f_LiH9m2Vjw-02LxbTVsSx8q2vzRD&zoom=1"></embed>
 		</div>
 		<div class="tab-pane fade" id="shops" role="tabpanel" aria-labelledby="shop-tab"><!-- These are the shops --></div>
@@ -219,10 +252,10 @@ $(document).ready(function() {
           <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/bush.jpg"/>Bush sales</li>
           <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/aru.png"/>Anglia Ruskin University</li>
           <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/hugheshall.png"/>Hughes Hall</li>
-          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/trinityhall.jpg"/>Trinity Hall</li>
           <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/al-amin.png"/>Al-Amin</li>
-          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/cambridge_classics.png"/>Cambridge Classics</li>
-          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/regalstar_logos.png"/>Regalstar Catering Ltd.</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/trinityhall.jpg"/>Trinity Hall</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/regalstarlogos.png"/>Regalstar Catering Ltd.</li>
+          <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/cambridgeclassics.png"/>Cambridge Classics</li>
           <li><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/sab.png"/>St. Andrews bureau</li>
         </ul>
       </fieldset>
@@ -260,12 +293,16 @@ $(document).ready(function() {
             <div class="special-why">Waste &amp; Recycling</div>
             <div class="special-who"><a target="_blank" href="http://www.greatercambridgewaste.org/"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/Greater-Cambridge-shared-waste.jpg" alt="Greater Cambridge Shared Waste"/></a></div>
           </li>
+          <li>
+            <div class="special-why">Web Hosting</div>
+            <div class="special-who"><a target="_blank" href="http://newtlabs.co.uk/"><img class="sponsor-logo" src="http://millroadwinterfair.org/assets/img/sponsors/newt-labs.png" alt="Newt Labs"/></a></div>
+          </li>
         </ul>
       </fieldset>
 		</div>
     <div class="tab-pane fade" id="volunteering" role="tabpanel" aria-labelledby="volunteering-tab">
       <p><span style="font-weight: normal;"> </span></p>
-      <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeD4vKIgY0iifzxlVr-wRRsy0JpebfaXcYJkDqx7g8e3U4-9A/viewform?embedded=true" width="640" height="1024" frameborder="0" marginwidth="0" marginheight="0">Loading&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;hellip;</iframe></p>
+      <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeD4vKIgY0iifzxlVr-wRRsy0JpebfaXcYJkDqx7g8e3U4-9A/viewform?embedded=true" onload="this.width=screen.width-50;this.height=screen.height;" frameborder="0" marginwidth="0" marginheight="0">Loading&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;hellip;</iframe></p>
     </div>
 		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div>
 	</div>

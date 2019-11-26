@@ -12,6 +12,10 @@ function render_performance(performance, destination) {
 	contents += "<div class=\"shop_content\"><div class=\"shop_header\">";
 	if (performance.performer&&performance.performer.url) {
 		var protocol = performance.performer.url.startsWith("https://") ? "https://": "http://";
+		if (performance.performer.url.includes('@')) {
+			// it's an email so different approach is needed
+			protocol = "mailto:";
+		}
 		var url = performance.performer.url.startsWith(protocol) ? performance.performer.url.substring(protocol.length) : performance.performer.url;
 		contents += "<a target=\"_blank\" href=\"" + protocol + url + "\">";
 	}
@@ -65,12 +69,17 @@ $(document).ready(function() {
 		var filter= $("#mrwfFilters");
 		filter.html("");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link\" href=\"#\" id=\"performances-all\">All</a></li>");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link\" href=\"#\" id=\"performances-timetable\">Timetable</a></li>");
 		time_slots.forEach(function (catArray) {
 			filter.append("<li class=\"nav-item\"><a class=\"nav-link performances-filter\" href=\"#\" data-time=\"" + catArray[1] + "\">" + catArray[0] + "</a></li>");
 		});
 		$("#performances-all").click(function(e) {
 			e.preventDefault();
 			$("#performances .grid .shop_elem").show();
+		});
+		$("#performances-timetable").click(function(e) {
+			e.preventDefault();
+			window.open("assets/doc/2019/Buskers-Timetable-2019.pdf");
 		});
 		$(".performances-filter").click(function(e) {
 			e.preventDefault();
