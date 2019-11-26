@@ -1,8 +1,13 @@
-.sponsor-logo {
+img.donor-logo {
   max-width: 150px;
   max-height: 150px;
   padding: 5px;
   display:block;
+}
+
+.sponsor-name {
+  display: block;
+  font-weight: bold
 }
 
 fieldset.thanks legend{

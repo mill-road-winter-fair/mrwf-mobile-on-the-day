@@ -1,5 +1,5 @@
 function render_event_icon(filename, message) {
-	var icon_folder = "http://www.millroadwinterfair.org/assets/Uploads/icons";
+	var icon_folder = "https://www.millroadwinterfair.org/assets/Uploads/icons";
 	return "<img class=\"event-img\" src=\"" + icon_folder + "/" + filename + "\" alt=\"" + message + "\" title=\""+message + "\"/>";
 }
 function render_event_icons(event) {
