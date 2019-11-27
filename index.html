@@ -1,4 +1,24 @@
 <!DOCTYPE html>
+<!--
+This site is a mobile-first design using several tabs in one load, it means the
+users load the site once and clicking through to other "pages" (actually tabs)
+is much quicker.
+
+Any tabs with hand-written copy in them will be in this file. Any tabs which generate
+their contents based on online data sources (typically google spreadsheets) will
+load their information via the corresponding .js files in the background once the
+core HTML has loaded.
+
+The navigation is in two parts: a main navigation bar, which is the same everywhere
+ and a tab-specific sub-navigation bar underneath. Any tabs that need to use
+ sub-navigation build their own using javascript when their tab is shown and This
+ navigation is kept at the top of the page using "sticky" javascript (not an
+ industry-wide term, we just call it that here).
+
+Since this is a mobile-first design it's important to consider phone screen space
+when adding new elements (e.g. to navigation bars) and since this is all in one
+page, css styles and div ids used for javascript should use tab-specific naming
+-->
 <html>
 <head>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -10,11 +30,12 @@
 
   gtag('config', 'UA-151724595-1');
 </script>
-
+<!-- Tells browsers they're definitely fine assuming this is western text -->
 <meta charset="utf-8"/>
 <title>Mill Road Winter Fair 2019</title>
+<!-- Tells mobile browsers to fit this page to their screen -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap 4 -->
+<!-- Bootstrap 4 (styling library)-->
 <link 	rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -27,7 +48,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
 		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 		crossorigin="anonymous"></script>
-<!-- Allows users to search all the items in the page, Fuse -->
+<!-- Allows users to search all the items in the page, library is called Fuse -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
 <!-- Layout library -->
 <script src="https://unpkg.com/packery@2/dist/packery.pkgd.js"></script>
@@ -55,7 +76,7 @@
 <link rel="stylesheet" href="css/thanks_tab.css">
 <script>
 // Specifically js for this layout
-// When the user scrolls the page, execute myFunction
+// When the user scrolls the page, keep just the bits of navigation we want at the top of the page.
 window.onscroll = function() {keepNavSticky()};
 var sticky;
 var header;
@@ -76,16 +97,18 @@ function keepNavSticky() {
 }
 var scrollHeight = 0;
 
+// Runs once the whole page is loaded, adds dynamic code to the static elements
 $(document).ready(function() {
   var url = document.location.toString();
   header = $("#stickyHeader");
 	body = $(".tab-content");
-// Get the offset position of the navbar
+  // Get the offset position of the navbar - needed for the sticky logic.
 	var offset = header.offset();
 	var original_tab_offset = body.offset();
 	sticky = offset.top;
 	body_original_offset = original_tab_offset.top - sticky;
 	body_original_margin_top = body.css('margin-top');
+  // These events fire when we switch tabs
 	$(document).on("show.bs.tab", function (e) {
 		scrollHeight = $(document).scrollTop();
 	});
@@ -101,6 +124,7 @@ $(document).ready(function() {
           target = "shops";
           break;
         case "whats-on-2019":
+        case "what-s-new":
           target = "events";
           break;
         case "mill-road-music":
@@ -205,18 +229,23 @@ $(document).ready(function() {
             <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
             <img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
           </form>
-          <a name="safety-and-road-closure" /><h4>Safety Information and Road Closure</h4>
-          <p>We do our best to ensure that the Mill Road Winter Fair is a safe and enjoyable event for all participants.</p>
-          <p>Stewards are available all day to assist visitors. They wear their fluorescent yellow safety jackets with “Mill Road Winter Fair” written on the back.</p>
-          <p>Meeting points along the road are marked with an ‘M’ in case people get lost. See the map here, pick up a leaflet or check the maps on the road on the day for details.</p>
-
-          <h5>First Aid and Control Centre</h5>
-          <p>The Control Centre is located at the Mill Road Baptist Church (on the Romsey side of Mill Road).</p>
-          <p>Anyone requiring First Aid is urged to contact the nearest steward or go to the First Aid point outside the Control Centre.</p>
-
-          <h5>Road closure</h5>
-          <p>On the day of the Fair, Mill Road is closed to traffic, including cyclists, between East Road and Coleridge Road from 9am until 5.30pm. Diversions are signposted. The rest of Mill Road and adjoining streets are open to traffic. In some circumstances, the direction of traffic in adjacent streets is different from normal and some road barriers normally closed are open.</p>
-          <p>Although the road is closed, we encourage everyone to exercise caution as there are occasional traffic movements including the possibility of movements from the emergency services. We ask that everyone remains alert and complies promptly with any instructions from stewards or emergency services.</p>
+          <a name="safety-and-road-closure" />
+          <h4>Important information</h4>
+          <p>Stewards wearing hi-vis jackets with Mill Road Winter Fair on the back, are available to assist you and help ensure your safety. Please comply promptly with any instructions from stewards.</p>
+          <p>If you see anything suspicious or unsafe, please report it to a steward immediately.</p>
+          <p>In an emergency, follow instructions from stewards or the emergency services.</p>
+          <a name="first-aid"/><h5>First Aid</h5>
+          <p>If you require First Aid ask the nearest steward.</p>
+          <h5>Event Control</h5>
+          <p>Event Control and First Aid are both located in the Baptist Church, 178 Mill Road Broadway, on the Corner of Stockwell Street.</p>
+          <h5>Missing children</h5>
+          <p>Please arrange your own family meeting point in case you become separated. Report missing children to any steward or Event Control.</p>
+          <a name="road-closure"/><h5>Road closure</h5>
+          <p>On the day, Mill Road between East Road and Coleridge Road, top of Gwydir St and top of St Barnabus Rd, will be closed to traffic, including cyclists, from 9.00am until 5.30pm, although activities will stop at 4.15pm. Diversions will be signposted.</p>
+          <p>Pedestrians should exercise particular care before the road is fully closed.</p>
+          <p>Re-opening will occur gradually, so drivers and pedestrians should take extreme care.</p>
+          <p>Pedestrians will be required to make way for emergency and other vehicles within the closure area, from time to time.</p>
+          <p>If you have any questions about the road closure on the day phone 07982 810343</p>
           <a name="parking" /><h4>Parking Information</h4>
           <p>During the Fair from 9.00am to 5.30pm Mill Road is closed to traffic. Gwydir Street Car Park is also closed from the previous evening until the end of Fair day as it is the site of the Food Fair. Great Eastern Street Car Park is also closed.</p>
           <p>The nearest car parks are Queen Anne Car Park and The Grafton Centre Car Park.</p>
@@ -252,7 +281,7 @@ $(document).ready(function() {
           <li><a target="_blank" href="https://bushsales.co.uk"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/bush.jpg" alt="Bush Sales"/><span class="sponsor-name">Bush sales</span></a></li>
           <li><a target="_blank" href="https://aru.ac.uk/"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/aru.png" alt="Anglia Ruskin University"/><span class="sponsor-name">Anglia Ruskin University</span></a></li>
           <li><a target="_blank" href="https://www.hughes.cam.ac.uk/"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/hugheshall.png" alt="Hughes Hall"/><span class="sponsor-name">Hughes Hall</span></a></li>
-          <li><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/al-amin.png" alt="Al-amin"/><span class="sponsor-name">Al-Amin</span></li>
+          <li><a target="_blank" href="http://www.alamin.co.uk/"> <img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/al-amin.png" alt="Al-amin"/><span class="sponsor-name">Al-Amin</span></a></li>
           <li><a target="_blank" href="https://www.trinhall.cam.ac.uk/"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/trinityhall.jpg" alt="Trinity Hall"/><span class="sponsor-name">Trinity Hall</span></a></li>
           <li><a target="_blank" href="https://lamaisondusteak.co.uk/"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/regalstarlogos.png" alt="Regalstar Catering Ltd"/><span class="sponsor-name">Regalstar Catering Ltd.</span></a></li>
           <li><a target="_blank" href="http://cambridgeclassics.co.uk/"><img class="donor-logo" src="https://millroadwinterfair.org/assets/img/thanks/cambridgeclassics.png" alt="Cambridge Classics"/><span class="sponsor-name">Cambridge Classics</span></a></li>
@@ -302,7 +331,7 @@ $(document).ready(function() {
 		</div>
     <div class="tab-pane fade" id="volunteering" role="tabpanel" aria-labelledby="volunteering-tab">
       <p><span style="font-weight: normal;"> </span></p>
-      <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeD4vKIgY0iifzxlVr-wRRsy0JpebfaXcYJkDqx7g8e3U4-9A/viewform?embedded=true" onload="this.width=screen.width-50;this.height=screen.height;" frameborder="0" marginwidth="0" marginheight="0">Loading&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;hellip;</iframe></p>
+      <p><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeD4vKIgY0iifzxlVr-wRRsy0JpebfaXcYJkDqx7g8e3U4-9A/viewform?embedded=true" onload="this.width=window.innerWidth;this.height=window.innerHeight;" frameborder="0" marginwidth="" marginheight="0">Loading&amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;amp;hellip;</iframe></p>
     </div>
 		<div class="tab-pane fade" id="search" role="tabpanel" aria-labelledby="search-tab">These are the search results</div>
 	</div>

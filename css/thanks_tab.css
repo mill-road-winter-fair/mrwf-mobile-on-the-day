@@ -10,10 +10,14 @@ img.donor-logo {
   font-weight: bold
 }
 
-fieldset.thanks legend{
-  text-align: center;
+fieldset.thanks legend {
   font-weight: bold;
 }
+
+fieldset.thanks {
+  text-align: center;
+}
+
 fieldset.thanks ul {
   list-style-type: none;
   text-align: center;

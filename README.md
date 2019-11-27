@@ -1,5 +1,21 @@
 # mrwf-mobile-on-the-day
-One page site for the day of the fair using external data sources, rather than the database or the existing framework
+This site is a mobile-first design using several tabs in one load, it means the
+users load the site once and clicking through to other "pages" (actually tabs)
+is much quicker.
 
+Any tabs with hand-written copy in them will be in index.html. Any tabs which generate
+their contents based on online data sources (typically google spreadsheets) will
+load their information via the corresponding .js files in the background once the
+core HTML has loaded.
+
+The navigation is in two parts: a main navigation bar, which is the same everywhere
+ and a tab-specific sub-navigation bar underneath. Any tabs that need to use
+ sub-navigation build their own using javascript when their tab is shown and this
+ navigation is kept at the top of the page using "sticky" javascript (not an
+ industry-wide term, we just call it that here).
+
+Since this is a mobile-first design it's important to consider phone screen space
+when adding new elements (e.g. to navigation bars) and since this is all in one
+page, css styles and div ids used for javascript should use tab-specific namin.
 
 [![Gitter](https://badges.gitter.im/mill-road-winter-fair/community.svg)](https://gitter.im/mill-road-winter-fair/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)

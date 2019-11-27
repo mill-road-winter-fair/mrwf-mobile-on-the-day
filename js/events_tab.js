@@ -1,3 +1,23 @@
+/**
+This site is a mobile-first design using several tabs in one load, it means the
+users load the site once and clicking through to other "pages" (actually tabs)
+is much quicker.
+
+Any tabs with hand-written copy in them will be in index.html. Any tabs which generate
+their contents based on online data sources (typically google spreadsheets) will
+load their information via the corresponding .js files in the background once the
+core HTML has loaded.
+
+The navigation is in two parts: a main navigation bar, which is the same everywhere
+ and a tab-specific sub-navigation bar underneath. Any tabs that need to use
+ sub-navigation build their own using javascript when their tab is shown and This
+ navigation is kept at the top of the page using "sticky" javascript (not an
+ industry-wide term, we just call it that here).
+
+Since this is a mobile-first design it's important to consider phone screen space
+when adding new elements (e.g. to navigation bars) and since this is all in one
+page, css styles and div ids used for javascript should use tab-specific naming
+*/
 function render_event_icon(filename, message) {
 	var icon_folder = "https://www.millroadwinterfair.org/assets/Uploads/icons";
 	return "<img class=\"event-img\" src=\"" + icon_folder + "/" + filename + "\" alt=\"" + message + "\" title=\""+message + "\"/>";
@@ -75,11 +95,18 @@ $(document).ready(function() {
 	$("#events-tab").on("show.bs.tab", function (e) {
 		var filter= $("#mrwfFilters");
 		filter.html("");
+		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-brochure\">Brochure</a></li>");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-all\">All</a></li>");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-morning\">Morning</a></li>");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-afternoon\">Afternoon</a></li>");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-all-day\">All Day</a></li>");
 		filter.append("<li class=\"nav-item\"><a class=\"nav-link events-filter\" href=\"#\" id=\"event-for-children\">For Children</a></li>");
+
+		$("#event-brochure").click(function(e) {
+			e.preventDefault();
+			window.open("assets/doc/2019/Brochure-2019.pdf");
+		});
+
 		$("#event-all").click(function(e) {
 			e.preventDefault();
 			$("#events .grid .shop_elem").show();
@@ -166,20 +193,25 @@ $(document).ready(function() {
 				items.push(item);
 			});
 			items.sort(function(a, b) {
+				// First by location
+				var locDiff = a.location.localeCompare(b.location);
+				if (locDiff!=0) return locDiff;
+				// Then by time
 				if (a.from) {
 					if (b.from) {
-						var time_diff = a.from.localeCompare(b.from);
-						if (time_diff == 0) {
-							return a.name.localeCompare(b.name);
-						}
+				 		var time_diff = a.from.localeCompare(b.from);
+				 		if (time_diff == 0) {
+				 			return a.name.localeCompare(b.name);
+				 		}
 						return time_diff;
-					}
-					return -1;
-				}
-				if (b.from) {
-					return 1;
-				}
-				return a.name.localeCompare(b.name);
+				 	}
+				 	return -1;
+				 }
+				 if (b.from) {
+				 	return 1;
+				 }
+				 // Finally by name
+				 return a.name.localeCompare(b.name);
 			});
 			items.forEach(function (item) {
 				render_event(item, grid);
