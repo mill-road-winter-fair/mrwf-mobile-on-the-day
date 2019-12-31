@@ -192,27 +192,27 @@ $(document).ready(function() {
 				}
 				items.push(item);
 			});
-			items.sort(function(a, b) {
-				// First by location
-				var locDiff = a.location.localeCompare(b.location);
-				if (locDiff!=0) return locDiff;
-				// Then by time
-				if (a.from) {
-					if (b.from) {
-				 		var time_diff = a.from.localeCompare(b.from);
-				 		if (time_diff == 0) {
-				 			return a.name.localeCompare(b.name);
-				 		}
-						return time_diff;
-				 	}
-				 	return -1;
-				 }
-				 if (b.from) {
-				 	return 1;
-				 }
-				 // Finally by name
-				 return a.name.localeCompare(b.name);
-			});
+			// items.sort(function(a, b) {
+			// 	// First by location
+			// 	var locDiff = a.location.localeCompare(b.location);
+			// 	if (locDiff!=0) return locDiff;
+			// 	// Then by time
+			// 	if (a.from) {
+			// 		if (b.from) {
+			// 	 		var time_diff = a.from.localeCompare(b.from);
+			// 	 		if (time_diff == 0) {
+			// 	 			return a.name.localeCompare(b.name);
+			// 	 		}
+			// 			return time_diff;
+			// 	 	}
+			// 	 	return -1;
+			// 	 }
+			// 	 if (b.from) {
+			// 	 	return 1;
+			// 	 }
+			// 	 // Finally by name
+			// 	 return a.name.localeCompare(b.name);
+			// });
 			items.forEach(function (item) {
 				render_event(item, grid);
 			});

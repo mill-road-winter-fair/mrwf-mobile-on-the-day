@@ -18,39 +18,21 @@ Since this is a mobile-first design it's important to consider phone screen spac
 when adding new elements (e.g. to navigation bars) and since this is all in one
 page, css styles and div ids used for javascript should use tab-specific naming
 */
-img.donor-logo {
-  max-height: 150px;
-  padding: 5px;
-  display:block;
-}
+$(document).ready(function() {
+  var selector = "#donate-tab, #helping-tab, #volunteering-tab";
+	$(selector).on("show.bs.tab", function (e) {
+		show_helping_nav();
+	});
+	$(selector).on("hide.bs.tab", function (e) {
+		var filter= $("#mrwfFilters");
+		filter.html("");
+	});
+});
 
-.sponsor-name {
-  display: block;
-  font-weight: bold
-}
-
-fieldset.thanks legend {
-  font-weight: bold;
-}
-
-fieldset.thanks {
-  text-align: center;
-}
-
-fieldset.thanks ul {
-  list-style-type: none;
-  text-align: center;
-}
-
-fieldset.thanks ul li {
-  display:inline-block;
-}
-
-.special-why {
-  font-weight: bold;
-  display:inline;
-}
-
-#donors li {
-  border-bottom: dotted 1px;
+function show_helping_nav() {
+  var filter= $("#mrwfFilters");
+  filter.html("");
+  add_tab_link(filter, "helping", "Help Us");
+  add_tab_link(filter, "volunteering", "Volunteer");
+  add_tab_link(filter, "donate", "Donate");
 }

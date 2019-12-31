@@ -23,10 +23,9 @@ function render_performance(performance, destination) {
 	// Something went wrong
 	if (!performance.performer) {
 		console.log("No performer", performance);
-		return;
 	}
 	var contents = "<div class=\"shop_elem\" data-from=\"" + performance.from + "\" data-to=\"" + performance.to + "\">";
-	if (performance.performer.image) {
+	if (performance.performer&&performance.performer.image) {
 		contents += "<img class=\"performer-img\" src=\"" + performance.performer.image + "\"/>";
 	}
 	contents += "<div class=\"shop_content\"><div class=\"shop_header\">";
@@ -161,9 +160,9 @@ $(document).ready(function() {
 					}
 					performances.push(item);
 				});
-				performances.sort(function(a, b) {
-					return a.from.localeCompare(b.from);
-				});
+				// performances.sort(function(a, b) {
+				// 	return a.from.localeCompare(b.from);
+				// });
 				// now that's done, render them all
 				performances.forEach(function(performance) {
 					render_performance(performance, grid);

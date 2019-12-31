@@ -31,6 +31,10 @@ ul.nav {
 	height:90%;
 }
 
+.hidden {
+	display: none;
+}
+
 .tab-pane, body{
 	background-color: #FFF;
 }

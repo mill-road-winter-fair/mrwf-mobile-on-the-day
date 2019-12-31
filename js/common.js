@@ -1,18 +1,28 @@
 // filter function that ensures only one example exists in the resultant list
-function only_unique(value, index, self) { 
+function only_unique(value, index, self) {
     return self.indexOf(value) === index;
 }
 
 function filterColumn(thing, prop) {
 	return thing.hasOwnProperty("gsx$" + prop) && (thing["gsx$" + prop].$t == "X" || thing["gsx$" + prop].$t == "x");
-}	
+}
+
+function add_tab_link(filter, name, title) {
+  var link = $("<li class=\"nav-item\"><a data-tab-id=\"" + name + "\" class=\"nav-link\">" + title + "</a></li>");
+  link.find('a').click(function(e) {
+		e.preventDefault();
+    var target = $(this).data("tab-id");
+    $('.nav-tabs a[href="#' + target + '"]').tab('show');
+  });
+  filter.append(link);
+}
 
 function map_location(rawloc) {
 	switch(rawloc.toLowerCase()) {
 		case "d g out":
 		case "dg out":
 			return "Donkey Green Outside";
-		case "ditchburn":	
+		case "ditchburn":
 			return "Ditchburn Gardens";
 		case "dg Marquee":
 		case "dg Marquee x 2":
@@ -34,7 +44,7 @@ function map_location(rawloc) {
 			return "St. Barnabas Road";
 		case "gwydir":
 			return "Gwydir Street Car Park";
-	}	
+	}
 	return rawloc;
 }
 

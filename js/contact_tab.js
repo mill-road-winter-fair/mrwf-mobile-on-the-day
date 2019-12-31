@@ -18,39 +18,20 @@ Since this is a mobile-first design it's important to consider phone screen spac
 when adding new elements (e.g. to navigation bars) and since this is all in one
 page, css styles and div ids used for javascript should use tab-specific naming
 */
-img.donor-logo {
-  max-height: 150px;
-  padding: 5px;
-  display:block;
-}
+$(document).ready(function() {
+	$("#contact-tab, #twitter-tab, #committee-tab").on("show.bs.tab", function (e) {
+		show_contacts_nav();
+	});
+	$("#contact-tab, #twitter-tab, #committee-tab").on("hide.bs.tab", function (e) {
+		var filter= $("#mrwfFilters");
+		filter.html("");
+	});
+});
 
-.sponsor-name {
-  display: block;
-  font-weight: bold
-}
-
-fieldset.thanks legend {
-  font-weight: bold;
-}
-
-fieldset.thanks {
-  text-align: center;
-}
-
-fieldset.thanks ul {
-  list-style-type: none;
-  text-align: center;
-}
-
-fieldset.thanks ul li {
-  display:inline-block;
-}
-
-.special-why {
-  font-weight: bold;
-  display:inline;
-}
-
-#donors li {
-  border-bottom: dotted 1px;
+function show_contacts_nav() {
+  var filter= $("#mrwfFilters");
+  filter.html("");
+  add_tab_link(filter, "contact", "Contact Us");
+  add_tab_link(filter, "committee", "The Committee");
+  add_tab_link(filter, "twitter", "Twitter");
 }
