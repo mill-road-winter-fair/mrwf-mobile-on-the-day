@@ -160,22 +160,27 @@ $(document).ready(function() {
 					data-toggle="tab" href="#home"
 					role="tab" aria-controls="home" aria-selected="true">Home</a>
 			</li>
-			<li class="nav-item">
+      <li class="nav-item">
+        <a class="nav-link" id="photo-gallery-tab"
+          data-toggle="tab" href="#photo-gallery"
+          role="tab" aria-controls="photo-gallery" aria-selected="false">Photo Gallery</a>
+      </li>
+      <li class="nav-item" style="display:none">
 					<a class="nav-link"	id="map-tab"
 					data-toggle="tab" href="#map"
 					role="tab" aria-controls="map" aria-selected="false">Map</a>
 			</li>
-      <li class="nav-item">
+      <li class="nav-item" style="display:none">
 				<a class="nav-link" id="events-tab"
 					data-toggle="tab" href="#events"
 					role="tab" aria-controls="events" aria-selected="false">What's On</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" style="display:none">
 				<a class="nav-link" id="shops-tab"
 					data-toggle="tab" href="#shops"
 					role="tab" aria-controls="shops" aria-selected="false">Stalls</a>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item" style="display:none">
 				<a class="nav-link" id="performances-tab"
 					data-toggle="tab" href="#performances"
 					role="tab" aria-controls="music" aria-selected="false">Performances</a>
@@ -221,13 +226,30 @@ $(document).ready(function() {
           data-toggle="tab" href="#committee"
           role="tab" aria-controls="committee" aria-selected="false">Committee</a>
       </li>
+
 		</ul>
 		<ul class="nav nav-tabs" id="mrwfFilters">
 		</ul>
 	</div>
-	<div class="tab-content" id="mrwfNavContent">
-		<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+  <div class="tab-content" id="mrwfNavContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
       <div id="main-container">
+        <h4>The 2019 fair was a success</h4>
+        We would like to thank everyone who came and made the day as fantastic as it was and look forward to seeing you on the 5th December 2020 for this year's fair.
+        We are especially grateful to our volunteers and donors to helping us keep the fair going. If you would like to help us keep the fair going you can contact us via our volunteers form.
+        <br/>
+        You can also donate direct to the fair.
+        <form class="donate-button" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick">
+          <input type="hidden" name="hosted_button_id" value="RNL9TBYJKM9KC">
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!" border="0">
+          <img alt="" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1" border="0">
+        </form>
+        <br />
+        <h4>Photos</h4>
+        We have a great collection of photos from previous fairs. Please help keep this collection alive by contributing your photos.
+        If you can take photos to help build up our Gallery, please email them to <a href="mailto:info@millroadwinterfair.org">info@millroadwinterfair.org</a>. Do contact us first if you want to contribute lots of photos so we can arrange more direct transfer of high-resolution versions.
+        <!--
         <div id="right-panel">
           <div id="key-events">
             <h3>Key events</h3>
@@ -285,7 +307,25 @@ $(document).ready(function() {
           <p>Services will be diverted via Coldham’s Lane.</p>
           <p>Information wiil be available at <a href="https://www.stagecoachbus.com/about/east">https://www.stagecoachbus.com/about/east</a></p>
         </div>
+      -->
       </div>
+    </div>
+    <div class="tab-pane fade" id="photo-gallery" role="tabpanel" aria-labelledby="photo-gallery-tab">
+      <h4>Photos</h4>
+      We have a great collection of photos from previous fairs. Please help keep this collection alive by contributing your photos.
+      If you can take photos to help build up our Gallery, please email them to <a href="mailto:info@millroadwinterfair.org">info@millroadwinterfair.org</a>. Do contact us first if you want to contribute lots of photos so we can arrange more direct transfer of high-resolution versions.
+      <br />
+      <h4>Gallery</h4>
+      <iframe src="http://www.flickr.com/slideShow/index.gne?group_id=&user_id=56457617@N06&set_id=&text=" frameBorder="0" width="650" height="650"></iframe>
+      <!--
+        &group_id - group id of flickr gallery (find your user/group id at: http://idgettr.com/ )
+        &set_id - show gallery by set id
+        &user_id - user id of flickr gallery (find your user/group id at: http://idgettr.com/ )
+        &tags - show certain images by tags
+        &text - show certain images by text search
+        width - width of flickr gallery
+        height - height of flickr gallery
+      -->
     </div>
 		<div class="tab-pane fade" id="map" role="tabpanel" aria-labelledby="map-tab">
 			<img id="map-img" class="map" src="https://www.millroadwinterfair.org/assets/doc/2019/MRWF%202019%20map.jpg">
